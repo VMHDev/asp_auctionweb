@@ -2,6 +2,9 @@
 - Sử dụng:
     - ASP.Net
     - MS SQL Server
+- Tài khoản:
+    User: admin
+    Password: 123456
 ## 1) Trang chủ:
 <a data-flickr-embed="true" href="https://www.flickr.com/photos/159324265@N07/50284587056/in/album-72157715763648818/" title="01_Home"><img src="https://live.staticflickr.com/65535/50284587056_c0dbf70606_b.jpg" width="1024" height="599" alt="01_Home"></a>
 
