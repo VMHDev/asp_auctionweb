@@ -1,0 +1,416 @@
+﻿@using ASP_Project_DHS.Helpers
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Auction Web DHS</title>
+    <!--css-->
+    <link href="~/assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/assets/css/font-awesome.css" rel="stylesheet">
+    <!--css-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="New Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300' rel='stylesheet' type='text/css'>
+
+    <style>
+        .modal {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+            .modal:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -4px;
+            }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            width: 30%;
+        }
+
+        .modal-content {
+            border-radius: 6px;
+            border: none;
+        }
+
+        .modal-header {
+            text-align: center;
+            background-color: #f19e1f;
+            color: white;
+            border-radius: 5px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        /*Scale hình ảnh nằm giữa, không tràn*/
+        .align_vertical img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .hinh {
+            border: solid;
+            border-width: thin;
+            border-radius: 5px;
+            border-color: gainsboro;
+            width: 100%;
+            padding-bottom: 100%;
+            background-color: white;
+        }
+
+        .top-rates {
+            padding: 0px;
+        }
+
+        .input-group-btn:last-child > .form-control {
+            margin-left: -1px;
+            width: auto;
+        }
+    </style>
+
+    @RenderSection("css", false)
+    <link href="~/assets/BoostrapSelect/css/bootstrap-select.min.css" rel="stylesheet" />
+</head>
+<body id="body">
+    <!--Header Begin-->
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <!-- Information Starts -->
+                <div class="top-left">
+                    <a href="#"> Hỗ trợ  <i class="glyphicon glyphicon-phone" aria-hidden="true"></i> +84-123 456 789</a>
+                </div>
+                <!-- Information Ends -->
+                <!-- Account Starts -->
+                <div class="top-right">
+                    @if (CurrentContext.IsLogged() == false)
+                    {
+
+                        <a href="@Url.Action("Login","Account")" style="color:white; font-weight:bold">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Đăng nhập
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="dhsdropdown" style="position:relative">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                @CurrentContext.GetCurUser().HoTen
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropinfo" style="position:absolute">
+                                <li>
+                                    <a href="@Url.Action("Index","QuanLyTaiKhoan")">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Thông tin tài khoản
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="logoutLink" href="#">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        Thoát
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Register","Account")">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        Tạo tài khoản mới
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ChangePassword","Account")">
+                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                        Đổi mật khẩu
+                                    </a>
+                                </li>
+                                @if (CurrentContext.GetCurUser().Vip == false)
+                                {
+                                    <li>
+                                        <a id="XinBanLink" href="#">
+                                            <i class="fa fa-level-up" aria-hidden="true"></i>
+                                            Xin bán
+                                        </a>
+                                    </li>
+                                }
+                                @if (CurrentContext.GetCurUser().Quyen == true)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","Admin")">
+                                            <i class="fa fa-certificate" aria-hidden="true"></i>
+                                            Quản trị
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <!--Form ẩn để submit chức năng xin bán-->
+                        <form id="frmXinBan" method="post" action="@Url.Action("XinBan","Account")">
+                            <input type="hidden" id="txtID" name="userId" value="@CurrentContext.GetCurUser().ID" />
+                        </form>
+                         <!------------------------------>
+                    }
+
+                </div>
+                <!-- Account Ends -->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!--Form ẩn để submit chức năng thoát-->
+        <form id="frmLogout" method="post" action="@Url.Action("Logout","Account")"></form>
+        <!------------------------------>
+
+        <div class="heder-bottom">
+            <div class="container">
+                <div class="logo-nav">
+                    <div class="logo-nav-left">
+                        <h1><a href="@Url.Action("Index","Home")">DHS <span>Auction Web</span></a></h1>
+                    </div>
+                    <div class="logo-nav-left1">
+                        <nav class="navbar navbar-default">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header nav_2">
+                                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="@Url.Action("Index", "Home")" class="act"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars fa-2x" aria-hidden="true"><span class="small"> Danh mục</span></i></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            <div class="row">
+                                                @Html.Action("DanhMucLon", "DanhMuc")
+                                            </div>
+                                        </ul>
+                                    </li>
+                                    <li><a href="@Url.Action("GioiThieu", "Home")"><i class="fa fa-info-circle fa-2x" aria-hidden="true"><span class="small"> Giới thiệu</span></i></a></li>
+                                    <li><a href="@Url.Action("LienHe", "Home")"><i class="fa fa-envelope fa-2x" aria-hidden="true"><span class="small"> Liên hệ</span></i></a></li>
+                                    <li>
+                                        <a href="@Url.Action("Home", "TimKiem")" class="btn btn-lg">
+                                            <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    @*<div class="logo-nav-right">
+                            <ul class="cd-header-buttons">
+                                <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+                            </ul>
+                            <div id="cd-search" class="cd-search">
+                                <form action="#" method="post">
+                                    <input name="Search" type="search" placeholder="Search...">
+                                </form>
+                            </div>
+                        </div>*@
+                    @if (CurrentContext.IsLogged())
+                    {
+                    @Html.Action("YeuThich", "YeuThich")
+                    }
+
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Header End-->
+    <!--Banner Begin-->
+    @RenderSection("view_banner", false)
+    <!--Banner End-->
+    <!--Content Begin-->
+    <div class="content">
+        @RenderBody()
+    </div>
+    <!--Content End-->
+    <!--Footer Begin--->
+    <div class="footer-w3l">
+        <div class="container">
+            <div class="footer-grids">
+                <div class="col-md-3 footer-grid">
+                    <h4>Giới thiệu</h4>
+                    <p>
+                        Web đấu giá sản phẩm DHS Auction<br />
+                        Nhóm developer: <br />
+                        Võ Minh Duy<br />
+                        Vũ Mạnh Hùng<br />
+                        Trần Phương Giang Sang<br />
+                    </p>
+                    <div class="social-icon">
+                        <a href="#"><i class="icon"></i></a>
+                        <a href="#"><i class="icon1"></i></a>
+                        <a href="#"><i class="icon2"></i></a>
+                        <a href="#"><i class="icon3"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <h4>Tài Khoản</h4>
+                    <ul>
+                        <li><a href="@Url.Action("Login", "Account")">Đăng Nhập</a></li>
+                        <li><a href="@Url.Action("Register", "Account")">Tạo Tài Khoản</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <h4>Thông Tin</h4>
+                    <ul>
+                        <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                        <li><a href="@Url.Action("Home", "TimKiem")">Tìm Kiếm</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid foot">
+                    <h4>Liên Hệ</h4>
+                    <ul>
+                        <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i><a>227 Nguyễn Văn Cừ, Quận 5</a></li>
+                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i><a>1 599-033-5036</a></li>
+                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a>maildaugia123@gmail.com</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_yeuthich" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">THÔNG BÁO</h3>
+                </div>
+                <div class="modal-body">
+                    <label id="yeuthich_thongbao"></label>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success col-sm-4 col-sm-offset-8" data-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i>OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Modal-->
+    <!---Footer End--->
+    <!--Copyright Begin-->
+    <div class="copy-section">
+        <div class="container">
+            <div class="copy-left">
+                <p>&copy; 2017 DHS Auction Web. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+            </div>
+            <div class="copy-right">
+                <img src="~/img/layout/card.png" alt="Card.png" />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <form id="frmauto" method="post"></form>
+    <!--Copyright End-->
+    <!--JS Begin-->
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <!--search jQuery-->
+    <script src="~/assets/js/main.js"></script>
+    <!--search jQuery-->
+    <script type="text/javascript" src="~/assets/js/bootstrap-3.1.1.min.js"></script>
+    <!-- cart -->
+    <script src="~/assets/js/simpleCart.min.js"></script>
+    <!-- cart -->
+    <script src="~/assets/js/imagezoom.js"></script>
+
+    <script type="text/javascript">
+        //Javascript Logout
+        $('#logoutLink').on('click', function () {
+            $('#frmLogout').submit();
+        });
+
+        //Javascript XinBan
+        $('#XinBanLink').on('click', function () {
+            $('#frmXinBan').submit();
+        });
+
+        //ajax yêu thích
+        $(function () {
+            $(".YeuThich").on('click', function () {
+                var id = $(this).data('id_yeuthich');
+                var url = '/YeuThich/Index/' + id;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#yeuthich_thongbao').html(response.tb);
+                        $('#slyeuthich').html(response.sl);
+                        //  alert(response.tb);
+                        $('#modal_yeuthich').modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    },
+                    error: function (response) {
+                        alert(response);
+                    }
+                });
+            });
+
+
+
+            //bấm nút xem yêu thích
+            $("#xemyeuthich").on('click', function () {
+                $('#frmxemyeuthich').submit();
+            });
+        });
+
+
+    </script>
+    @*<script src="~/assets/jquery-3.1.1.min.js"></script>
+        <script src="~/assets/BoostrapSelect/js/bootstrap-select.min.js"></script>*@
+    <script type="text/javascript">
+
+
+        @*$(document).ready(function () {
+            $('#frmauto').submit(ajax);
+        })
+        function ajax() {
+            $.ajax({
+                url: '@Url.Action("KiemTraHetHan", "Home")',
+                type: 'POST',
+
+                success: function (data) {
+
+                },
+                failure: function (data) {
+
+                },
+                error: function (data) {
+
+                }
+            });
+            return false;
+        }
+        window.onload = function () {
+            setInterval(ajax, 60000);
+        }*@
+    </script>
+
+    @RenderSection("js", false)
+    <!--JS End-->
+</body>
+</html>

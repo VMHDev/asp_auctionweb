@@ -1,0 +1,351 @@
+﻿@using ASP_Project_DHS.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Đăng mặt hàng</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+
+@section css{
+
+    <link rel="stylesheet" href="~/assets/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="~/assets/css/flexslider.css" type="text/css" media="screen" />
+    <link href="~/assets/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/assets/BootstrapTouchSpin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    @*<link href="~/assets/BoostrapSelect/css/bootstrap-select.min.css" rel="stylesheet" />*@
+    <link href="~/assets/BootstrapToggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap-slider-master/css/bootstrap-slider.min.css" rel="stylesheet" />
+    <style>
+        .input-group {
+            margin-bottom: 0px;
+        }
+
+        ._margin-bottom {
+            margin-bottom: 20px;
+            font-size: small;
+        }
+
+
+        .products-agileinfo {
+            background-color: white;
+            padding: 0px;
+        }
+
+        label {
+            font-weight: lighter;
+        }
+
+        .product-agileinfon-grid1 {
+            border: solid;
+            border-width: thin;
+            border-radius: 5px;
+            border-color: gainsboro;
+            padding-top: 10px;
+            padding-left: 0px;
+            padding-right: 0px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+}
+
+@section js{
+    <script src="~/assets/jquery-3.1.1.min.js"></script>
+    <script src="~/assets/BoostrapSelect/js/bootstrap-select.min.js"></script>
+    @*<script src="~/assets/jquery-3.1.1.min.js"></script>*@
+    <script src="~/assets/js/jquery-ui.js"></script>
+    <script defer src="~/assets/js/jquery.flexslider.js"></script>
+    <script src="~/assets/js/jstarbox.js"></script>
+    <script src="~/assets/js/owl.carousel.js"></script>
+    <script src="~/assets/BootstrapTouchSpin/jquery.bootstrap-touchspin.min.js"></script>
+    @*<script src="~/assets/BoostrapSelect/js/bootstrap-select.min.js"></script>*@
+    <script src="~/assets/TinyMCE/js/tinymce/jquery.tinymce.min.js"></script>
+    <script src="~/assets/TinyMCE/js/tinymce/tinymce.min.js"></script>
+    <script src="~/assets/BootstrapToggle/js/bootstrap2-toggle.min.js"></script>
+    <script src="~/assets/jquery-validation-1.16.0/jquery.validate.min.js"></script>
+    <script src="~/assets/bootstrap-filestyle-1.2.1-markusslima/bootstrap-filestyle.min.js"></script>
+    <script src="~/assets/bootstrap-slider-master/bootstrap-slider.min.js"></script>
+    @*<script type="text/javascript">
+            //boostrap-select
+            $('.selectDM').selectpicker({
+                style: 'btn-info',
+                size: 16
+            });
+        </script>*@
+
+    <script>
+        //touchspin
+        $(".gia").TouchSpin({
+            min: 0,
+            max: 999999999,
+            step: 5000,
+            postfix: 'VND'
+        });
+
+        $("#BuocNhay").TouchSpin({
+            min: 0,
+            max: 999999999,
+            step: 1000,
+            postfix: 'VND'
+        });
+
+        $("#YeuCauDanhGia").TouchSpin({
+            min: 1,
+            max: 999999999,
+            step: 1,
+            postfix: '% (Like/Dislike)'
+        });
+        //Mô tả đầy đủ, textarea
+        tinymce.init({
+            selector: '#MoTaDayDu',
+            menubar: false,
+            toolbar1: "styleselect | bold italic | link image | alignleft aligncenter alignright | bullist numlist",
+            toolbar2: "fontselect | fontsizeselect | forecolor backcolor",
+            plugins: 'link image textcolor',
+            encoding: "xml",
+        });
+        $(function () {
+            $('#GiaHanTuDong').bootstrapToggle();
+        });
+        ////upload file
+        //$('input[type=file]').boostrapFileinput();
+
+    </script>
+
+    <script type="text/javascript">
+        $('#frmDang').validate({
+            rules: {
+                Ten: {
+                    required: true
+                },
+                anhchitiet: {
+                    required: true,
+                    imageOnly: true
+                },
+                anhdaidien: {
+                    required: true,
+                    imageOnly: true
+                },
+                GiaKhoiDiem: {
+                    required: true
+                }
+            },
+            messages: {
+                Ten: {
+                    required: 'Vui lòng nhập tên sản phẩm'
+                },
+                anhchitiet: {
+                    required: 'Vui lòng chọn ảnh chi tiết',
+                    imageOnly: 'Tập tin không phải hình ảnh'
+                },
+                anhdaidien: {
+                    required: 'Vui lòng chọn ảnh đại diện',
+                    imageOnly: 'Tập tin không phải hình ảnh'
+                },
+                GiaKhoiDiem: {
+                    required: 'nhỏ'
+                }
+            },
+            //errorElement: 'span',
+            errorElement: 'span',
+            //errorLabelContainer: '.errorTxt',
+            errorPlacement: function (error, element) {
+                //Custom position: first name
+                if (element.attr("name") == "anhchitiet") {
+                    $('#anhchitiet').text($(error).text());
+                    console.log($(error).html());
+                }
+                else if (element.attr("name") == "anhdaidien") {
+                    $('#anhdaidien').text($(error).text());
+                    console.log($(error).html());
+                }
+                else if (element.attr("name") == "GiaKhoiDiem") {
+                    $('#giakd').text($(error).text());
+                    console.log($(error).html());
+                }
+                else {
+                    error.insertAfter(element).wrap('<span/>');
+                }
+            },
+            //highlight: function (element, errorClass) {
+            //    $(element).closest('.1').closest('.2').addClass('has-error text-danger');
+            //},
+
+            highlight: function (error) {
+                $(error).closest('.1').closest('.2').addClass('has-error text-danger');
+            },
+            success: function (element, error) {
+                //$(label).closest('.1').closest('.2').removeClass('has-error text-danger');
+                $(error).closest('.1').closest('.2').removeClass('has-error text-danger');
+            },
+        });
+        $(":file").filestyle({
+            input: false,
+            buttonText: "Chọn ảnh",
+            buttonName: "btn-primary"
+        });
+        $.validator.addMethod("imageOnly", function (value, element) {
+            return this.optional(element) || /^.+\.(jpg|JPG|png|PNG)$/.test(value)
+        });
+
+        //slider input
+        $("#ex8").slider({
+            tooltip: 'always'
+        });
+
+        // Without JQuery
+        var slider = new Slider("#ex8", {
+            tooltip: 'always'
+        });
+    </script>
+}
+
+<!--content-->
+<div class="content">
+    <div class="products-agileinfo">
+        <h2 class="tittle">Đăng sản phẩm</h2>
+        <div class="container">
+            <div class="product-agileinfo-grids w3l">
+                <!--partialview danhmuc-->
+                <div class="col-md-3 product-agileinfo-grid">
+                    @Html.Action("DanhMucLon", "DauGia")
+                </div>
+                <!--partialview danhmuc-->
+                <div class="col-md-9 product-agileinfon-grid1">
+                    <form action="@Url.Action("Them", "DauGiaDB")" method="post" id="frmDang" enctype="multipart/form-data">
+                        <div class="col-md-6 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left">Danh mục</label>
+                            </div>
+                            <select class="col-md-9 col-sm-12 selectpicker selectDM" name="ID_DanhMucNho">
+                                @Html.Action("DanhMucLon", "TimKiem")
+                            </select>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 2 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left">Tên</label>
+                            </div>
+                            <div class="col-md-9 col-sm-12 1 text-left">
+                                <input class="form-control" type="text" name="Ten" placeholder="Tên sản phẩm">
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 2 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left" title="Giá khởi điểm">Giá KĐ</label>
+                            </div>
+                            <div class="col-md-9 col-sm-12 1">
+                                <input class="form-control gia" type="text" value="0" name="GiaKhoiDiem">
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left" title="Giá mua ngay">Giá MN</label>
+                            </div>
+                            <div class="col-md-9 col-sm-12">
+                                <input class="form-control gia" type="text" value="0" name="GiaMuaNgay">
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left">Bước nhảy</label>
+                            </div>
+                            <div class="col-md-9 col-sm-12">
+                                <input class="form-control" type="text" id="BuocNhay" value="0" name="BuocNhay">
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left">Số ngày</label>
+                            </div>
+                            <select class="col-md-9 col-sm-12 selectpicker selectDM" name="SoNgay">
+                                <option value="1">1</option>
+                                <option value="3">3</option>
+                                <option value="7">7</option>
+                                <option value="15">15</option>
+                            </select>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-6 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left">Gia hạn TĐ</label>
+                            </div>
+                            <div class="col-md-9 col-sm-12">
+                                <input type="checkbox" id="GiaHan" name="GiaHanTuDong" value="true" data-toggle="toggle" data-onstyle="success" data-width="100%" data-height="30" data-on="On - VND 10,000" data-off="Off">
+                                <input type="hidden" name="GiaHanTuDong" value="false" />
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 _margin-bottom">
+                            <div class="col-md-3">
+                                <label class="pull-left">Yêu cầu</label>
+                            </div>
+                            <input name="YeuCauDanhGia" id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" />
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-12 _margin-bottom">
+                            <div class="col-md-12">
+                                <label class="pull-left">Mô tả</label>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <input class="form-control" type="text" name="MoTa" placeholder="Mô tả">
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 _margin-bottom">
+                            <div class="col-md-12">
+                                <label class="pull-left">Mô tả đầy đủ</label>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <textarea id="MoTaDayDu" name="MoTaDayDu"></textarea>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 2 _margin-bottom">
+                            <div class="col-md-4">
+                                <label class="pull-left">Ảnh đại diện</label>
+                                <span class="pull-left small">(Chỉ một)</span>
+                            </div>
+                            <div class="col-md-8 col-sm-12 1 text-left">
+                                <input type="file" name="anhdaidien" />
+                                <div class="clearfix"></div>
+                                <span id="anhdaidien"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 2 _margin-bottom">
+                            <div class="col-md-4">
+                                <label class="pull-left">Ảnh chi tiết</label>
+                                <span class="pull-left small">(Một || Nhiều)</span>
+                            </div>
+                            <div class="col-md-8 col-sm-12 1 text-left">
+                                <input type="file" multiple="multiple" name="anhchitiet" />
+                                <div class="clearfix"></div>
+                                <span id="anhchitiet"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-success" type="submit" value="Submit"><i class="fa fa-check" aria-hidden="true"></i>Đăng</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content-->

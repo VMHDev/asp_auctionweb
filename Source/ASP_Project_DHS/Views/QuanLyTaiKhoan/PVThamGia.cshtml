@@ -1,0 +1,62 @@
+﻿@model List<ASP_Project_DHS.Models.ChiTietDauGia>
+
+@{
+    int i = 0;
+    if (Model.Count() == 0)
+    {
+        <h3 class="text-center" style="margin-bottom: 20px">Không có sản phẩm</h3>
+    }
+    else
+    {
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Thời gian</th>
+                <th>Giá đặt (VND)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+                <tr>
+                    <td style="height: 113px">
+                        <div class="hinhtable">
+                            <div class="align_vertical hinh">
+                                <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">
+                                    <img class="img-responsive" src="~/assets/images/DauGia/@item.ID_DauGia/daidien.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <a style="margin-left:95px" href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID_DauGia })">@ViewBag.DSDG[i].Ten</a>
+                    </td>
+                    <td>@item.NgayThamGiaDauGiaGanNhat.Value.ToString(string.Format("HH:mm:ss, dd/MM/yyyy"))</td>
+                    @if (ViewBag.DSDG[i].NgayKetThuc < DateTime.Now)
+                    {
+                        <td style="text-align: right">
+                            @String.Format("{0:N0}", item.GiaGanNhat)
+                            <i class="fa fa-share" style="color: red" aria-hidden="true"></i>
+                            @Html.Action("DangGiu", "QuanLyTaiKhoan", new { id = item.ID_DauGia })
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="text-align: right">
+                            @String.Format("{0:N0}", item.GiaGanNhat)
+                            <i class="fa fa-clock-o" style="color: green" aria-hidden="true"></i>
+                            @Html.Action("DangGiu", "QuanLyTaiKhoan", new { id = item.ID_DauGia })
+                        </td>
+                    }
+
+                    
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+        }
+    }

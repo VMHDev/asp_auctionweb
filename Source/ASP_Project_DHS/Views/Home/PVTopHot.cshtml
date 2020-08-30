@@ -1,0 +1,55 @@
+﻿@model List<ASP_Project_DHS.Models.DauGia>
+
+@{ 
+    int i = 0;
+    foreach (var item in Model)
+    {
+        var ngay = item.NgayKetThuc.Value - DateTime.Now;
+        ViewBag.Gio = ngay.Hours + ngay.Days * 24;
+        ViewBag.Phut = ngay.Minutes;
+        ViewBag.Giay = ngay.Seconds;
+
+        <div class="col-sm-6 col-sm-15 col-xs-12 arrival-grid arrival-grid simpleCart_shelfItem" style="margin-bottom:20px">
+            <div class="grid-arr" style="white-space:nowrap; overflow:hidden">
+                <div class="grid-arrival">
+                    <figure>
+                        <div class="align_vertical hinh" style="position:relative">
+                            <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">
+                                <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                            </a>
+                        </div>
+                    </figure>
+                </div>
+                @if (item.NgayBatDau.Value.AddMinutes(30) >= DateTime.Now)
+                {
+                    <div class="ribben1">
+                        <p>NEW</p>
+                    </div>
+                }
+                <div class="ribben1">
+                        <p>@ViewBag.LuotDauGia[i] lượt</p>
+                    </div>
+                @*<div class="block">
+                    <div class="starbox small ghosting"> </div>
+                </div>*@
+                <div class="women">
+                    <h6 title="@item.Ten"><a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">@item.Ten</a></h6>
+                    <span class="size"><i class="text-danger" style="font-size:x-large">@ViewBag.Gio:@ViewBag.Phut:@(ViewBag.Giay)s</i></span>
+                    @if (item.GiaCaoNhatHienTai == null)
+                    {
+                        <p><em class="item_price">VND @String.Format("{0:N0}", item.GiaKhoiDiem)</em></p>
+                    }
+                    else
+                    {
+                        <p><em class="item_price">VND @String.Format("{0:N0}", item.GiaCaoNhatHienTai)</em></p>
+                    }
+
+                    @*<a href="#" data-text="Đấu giá" class="my-cart-b item_add">Đấu giá</a>*@
+                    <a href="javascript:;" class="my-cart-b item_add YeuThich" data-id_yeuthich="@item.ID"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        i++;
+    }
+}
+

@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QLDauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChiTietDauGia">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_DauGia" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_DauGia" Type="int" Nullable="false" />
+          <Property Name="ID_TaiKhoanThamGiaDauGia" Type="int" />
+          <Property Name="GiaGanNhat" Type="money" />
+          <Property Name="NgayThamGiaDauGiaGanNhat" Type="datetime" />
+          <Property Name="BiCam" Type="bit" />
+          <Property Name="GiaHienTaiLucDat" Type="money" />
+        </EntityType>
+        <EntityType Name="DanhMucLon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="255" />
+          <Property Name="TinhTrang" Type="bit" />
+        </EntityType>
+        <EntityType Name="DanhMucNho">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_DanhMucLon" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="255" />
+          <Property Name="ID_DanhMucLon" Type="int" Nullable="false" />
+          <Property Name="TinhTrang" Type="bit" />
+        </EntityType>
+        <EntityType Name="DauGia">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_DanhMucNho" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="255" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="100" />
+          <Property Name="MoTaDayDu" Type="ntext" />
+          <Property Name="GiaKhoiDiem" Type="money" />
+          <Property Name="GiaMuaNgay" Type="money" />
+          <Property Name="BuocNhay" Type="money" />
+          <Property Name="YeuCauDanhGia" Type="int" />
+          <Property Name="NgayBatDau" Type="datetime" />
+          <Property Name="NgayKetThuc" Type="datetime" />
+          <Property Name="GiaHanTuDong" Type="bit" />
+          <Property Name="ID_NguoiDauGia" Type="int" />
+          <Property Name="GiaCaoNhatHienTai" Type="money" />
+          <Property Name="ID_DanhMucNho" Type="int" Nullable="false" />
+          <Property Name="SoLuongHinh" Type="int" />
+          <Property Name="ID_NguoiGiuGia" Type="int" />
+          <Property Name="DanhGia" Type="bit" />
+          <Property Name="NguoiBanDanhGia" Type="bit" />
+          <Property Name="GuiMailThatBai" Type="bit" />
+        </EntityType>
+        <EntityType Name="NhanXet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_NguoiDanhGia" Type="int" />
+          <Property Name="ID_NguoiDuocDanhGia" Type="int" />
+          <Property Name="ID_DauGia" Type="int" />
+          <Property Name="LoiNhanXet" Type="varchar" MaxLength="255" />
+          <Property Name="Like" Type="bit" />
+          <Property Name="Ngay" Type="datetime" />
+          <Property Name="LaNguoiBan" Type="bit" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDangNhap" Type="nvarchar" MaxLength="255" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="255" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="255" />
+          <Property Name="Diem" Type="int" />
+          <Property Name="DanhGiaTot" Type="int" />
+          <Property Name="DanhGiaXau" Type="int" />
+          <Property Name="Quyen" Type="bit" />
+          <Property Name="Vip" Type="bit" />
+          <Property Name="ThoiGianXinBan" Type="datetime" />
+          <Property Name="ResetPass" Type="bit" />
+          <Property Name="TonTai" Type="bit" />
+        </EntityType>
+        <EntityType Name="YeuThich">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_NguoiThich" Type="int" />
+          <Property Name="ID_DauGia" Type="int" />
+        </EntityType>
+        <EntityContainer Name="QLDauGiaModelStoreContainer">
+          <EntitySet Name="ChiTietDauGia" EntityType="Self.ChiTietDauGia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhMucLon" EntityType="Self.DanhMucLon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhMucNho" EntityType="Self.DanhMucNho" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DauGia" EntityType="Self.DauGia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanXet" EntityType="Self.NhanXet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YeuThich" EntityType="Self.YeuThich" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChiTietDauGia">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_DauGia" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_DauGia" Type="Int32" Nullable="false" />
+          <Property Name="ID_TaiKhoanThamGiaDauGia" Type="Int32" />
+          <Property Name="GiaGanNhat" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NgayThamGiaDauGiaGanNhat" Type="DateTime" Precision="3" />
+          <Property Name="BiCam" Type="Boolean" />
+          <Property Name="GiaHienTaiLucDat" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="DanhMucLon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DanhMucNho">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_DanhMucLon" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ID_DanhMucLon" Type="Int32" Nullable="false" />
+          <Property Name="TinhTrang" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DauGia">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_DanhMucNho" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MoTaDayDu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GiaKhoiDiem" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GiaMuaNgay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BuocNhay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="YeuCauDanhGia" Type="Int32" />
+          <Property Name="NgayBatDau" Type="DateTime" Precision="3" />
+          <Property Name="NgayKetThuc" Type="DateTime" Precision="3" />
+          <Property Name="GiaHanTuDong" Type="Boolean" />
+          <Property Name="ID_NguoiDauGia" Type="Int32" />
+          <Property Name="GiaCaoNhatHienTai" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_DanhMucNho" Type="Int32" Nullable="false" />
+          <Property Name="SoLuongHinh" Type="Int32" />
+          <Property Name="ID_NguoiGiuGia" Type="Int32" />
+          <Property Name="DanhGia" Type="Boolean" />
+          <Property Name="NguoiBanDanhGia" Type="Boolean" />
+          <Property Name="GuiMailThatBai" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="QLDauGiaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChiTietDauGia" EntityType="Self.ChiTietDauGia" />
+          <EntitySet Name="DanhMucLon" EntityType="Self.DanhMucLon" />
+          <EntitySet Name="DanhMucNho" EntityType="Self.DanhMucNho" />
+          <EntitySet Name="DauGia" EntityType="Self.DauGia" />
+          <EntitySet Name="NhanXet" EntityType="QLDauGiaModel.NhanXet" />
+          <EntitySet Name="YeuThich" EntityType="QLDauGiaModel.YeuThich" />
+          <EntitySet Name="TaiKhoan" EntityType="QLDauGiaModel.TaiKhoan" />
+        </EntityContainer>
+        <EntityType Name="NhanXet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_NguoiDanhGia" Type="Int32" />
+          <Property Name="ID_NguoiDuocDanhGia" Type="Int32" />
+          <Property Name="ID_DauGia" Type="Int32" />
+          <Property Name="Like" Type="Boolean" />
+          <Property Name="Ngay" Type="DateTime" Precision="3" />
+          <Property Name="LoiNhanXet" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LaNguoiBan" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="YeuThich">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_NguoiThich" Type="Int32" />
+          <Property Name="ID_DauGia" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDangNhap" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HoTen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Diem" Type="Int32" />
+          <Property Name="DanhGiaTot" Type="Int32" />
+          <Property Name="DanhGiaXau" Type="Int32" />
+          <Property Name="Quyen" Type="Boolean" />
+          <Property Name="Vip" Type="Boolean" />
+          <Property Name="ThoiGianXinBan" Type="DateTime" Precision="3" />
+          <Property Name="ResetPass" Type="Boolean" />
+          <Property Name="TonTai" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLDauGiaModelStoreContainer" CdmEntityContainer="QLDauGiaEntities">
+          <EntitySetMapping Name="ChiTietDauGia">
+            <EntityTypeMapping TypeName="QLDauGiaModel.ChiTietDauGia">
+              <MappingFragment StoreEntitySet="ChiTietDauGia">
+                <ScalarProperty Name="GiaHienTaiLucDat" ColumnName="GiaHienTaiLucDat" />
+                <ScalarProperty Name="BiCam" ColumnName="BiCam" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_DauGia" ColumnName="ID_DauGia" />
+                <ScalarProperty Name="ID_TaiKhoanThamGiaDauGia" ColumnName="ID_TaiKhoanThamGiaDauGia" />
+                <ScalarProperty Name="GiaGanNhat" ColumnName="GiaGanNhat" />
+                <ScalarProperty Name="NgayThamGiaDauGiaGanNhat" ColumnName="NgayThamGiaDauGiaGanNhat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DanhMucLon">
+            <EntityTypeMapping TypeName="QLDauGiaModel.DanhMucLon">
+              <MappingFragment StoreEntitySet="DanhMucLon">
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DanhMucNho">
+            <EntityTypeMapping TypeName="QLDauGiaModel.DanhMucNho">
+              <MappingFragment StoreEntitySet="DanhMucNho">
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="ID_DanhMucLon" ColumnName="ID_DanhMucLon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DauGia">
+            <EntityTypeMapping TypeName="QLDauGiaModel.DauGia">
+              <MappingFragment StoreEntitySet="DauGia">
+                <ScalarProperty Name="GuiMailThatBai" ColumnName="GuiMailThatBai" />
+                <ScalarProperty Name="NguoiBanDanhGia" ColumnName="NguoiBanDanhGia" />
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+                <ScalarProperty Name="ID_NguoiGiuGia" ColumnName="ID_NguoiGiuGia" />
+                <ScalarProperty Name="SoLuongHinh" ColumnName="SoLuongHinh" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="MoTaDayDu" ColumnName="MoTaDayDu" />
+                <ScalarProperty Name="GiaKhoiDiem" ColumnName="GiaKhoiDiem" />
+                <ScalarProperty Name="GiaMuaNgay" ColumnName="GiaMuaNgay" />
+                <ScalarProperty Name="BuocNhay" ColumnName="BuocNhay" />
+                <ScalarProperty Name="YeuCauDanhGia" ColumnName="YeuCauDanhGia" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+                <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+                <ScalarProperty Name="GiaHanTuDong" ColumnName="GiaHanTuDong" />
+                <ScalarProperty Name="ID_NguoiDauGia" ColumnName="ID_NguoiDauGia" />
+                <ScalarProperty Name="GiaCaoNhatHienTai" ColumnName="GiaCaoNhatHienTai" />
+                <ScalarProperty Name="ID_DanhMucNho" ColumnName="ID_DanhMucNho" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanXet">
+            <EntityTypeMapping TypeName="QLDauGiaModel.NhanXet">
+              <MappingFragment StoreEntitySet="NhanXet">
+                <ScalarProperty Name="LaNguoiBan" ColumnName="LaNguoiBan" />
+                <ScalarProperty Name="LoiNhanXet" ColumnName="LoiNhanXet" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Like" ColumnName="Like" />
+                <ScalarProperty Name="ID_DauGia" ColumnName="ID_DauGia" />
+                <ScalarProperty Name="ID_NguoiDuocDanhGia" ColumnName="ID_NguoiDuocDanhGia" />
+                <ScalarProperty Name="ID_NguoiDanhGia" ColumnName="ID_NguoiDanhGia" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YeuThich">
+            <EntityTypeMapping TypeName="QLDauGiaModel.YeuThich">
+              <MappingFragment StoreEntitySet="YeuThich">
+                <ScalarProperty Name="ID_DauGia" ColumnName="ID_DauGia" />
+                <ScalarProperty Name="ID_NguoiThich" ColumnName="ID_NguoiThich" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoan">
+            <EntityTypeMapping TypeName="QLDauGiaModel.TaiKhoan">
+              <MappingFragment StoreEntitySet="TaiKhoan">
+                <ScalarProperty Name="TonTai" ColumnName="TonTai" />
+                <ScalarProperty Name="ResetPass" ColumnName="ResetPass" />
+                <ScalarProperty Name="ThoiGianXinBan" ColumnName="ThoiGianXinBan" />
+                <ScalarProperty Name="Vip" ColumnName="Vip" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+                <ScalarProperty Name="DanhGiaXau" ColumnName="DanhGiaXau" />
+                <ScalarProperty Name="DanhGiaTot" ColumnName="DanhGiaTot" />
+                <ScalarProperty Name="Diem" ColumnName="Diem" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

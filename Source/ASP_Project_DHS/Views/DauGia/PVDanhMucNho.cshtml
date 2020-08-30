@@ -1,0 +1,7 @@
+﻿@using ASP_Project_DHS.Models
+@model List<DanhMucNho>
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("TheoDanhMuc", "DauGia", new { id = item.ID})">@item.Ten</a></li>
+}

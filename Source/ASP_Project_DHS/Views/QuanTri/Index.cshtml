@@ -1,0 +1,262 @@
+﻿@using ASP_Project_DHS.Models
+@using ASP_Project_DHS.Helpers
+@model TaiKhoan
+
+@{
+    ViewBag.Title = "ChiTiet";
+}
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action(" Index","Home")">Trang chủ</a></li>
+            <li class="active">Quản Trị</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+
+@section css{
+    @*<link rel="stylesheet" href="~/assets/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="~/assets/css/flexslider.css" type="text/css" media="screen" />
+        <link href="~/assets/css/owl.carousel.css" rel="stylesheet">*@
+    <link href="~/assets/BootstrapTouchSpin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <style>
+        /*Sửa layout*/
+        .single-wl3 {
+            padding: 0px;
+        }
+
+        .product-w3agile {
+            margin-top: 0px;
+        }
+
+        .products-agileinfo {
+            background-color: white;
+            padding: 0px;
+        }
+
+        .hinhtable {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+        }
+
+        /*Model đấu giá*/
+        .modal {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+            .modal:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -4px;
+            }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            width: 30%;
+        }
+
+        .modal-content {
+            border-radius: 6px;
+            border: none;
+        }
+
+        .modal-header {
+            text-align: center;
+            background-color: #f19e1f;
+            color: white;
+            border-radius: 5px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+    </style>
+}
+
+@section js{
+    @*<script defer src="~/assets/js/jquery.flexslider.js"></script>
+        <script src="~/assets/js/jstarbox.js"></script>
+        <script src="~/assets/js/imagezoom.js"></script>
+        <script src="~/assets/js/owl.carousel.js"></script>
+        <script src="~/assets/js/jquery-ui.min.js"></script>
+        <script src="~/assets/BootstrapTouchSpin/jquery.bootstrap-touchspin.min.js"></script>*@
+    <script src="~/assets/BootstrapToggle/js/bootstrap2-toggle.min.js"></script>
+    <script type="text/javascript">
+        //bấm nút đánh giá (tab thắng cuộc), người mua đánh giá
+        $('.danhgia').on('click', function () {
+            var id = $(this).data('id_nguoidang');
+            var iddg = $(this).data('id_daugia');
+            $('#txtID_NguoiDang').val(id);
+            $('#txtID_DauGia').val(iddg);
+        })
+
+        //bấm nút đánh giá (tab hết hạn), người bán đánh giá
+        $('.nguoibandanhgia').on('click', function () {
+            var id = $(this).data('id_nguoigiugia');
+            var iddg = $(this).data('id_daugia');
+            $('#txtidnguoigiugia').val(id);
+            $('#txtiddaugia').val(iddg);
+        })
+
+        //toggle like/dislike
+        $(function () {
+            $('#like').bootstrapToggle();
+        });
+    </script>
+    <!--<script>
+
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function currentDiv(n) {
+            showDivs(slideIndex = n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" red", "");
+            }
+            x[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " red";
+        }
+
+        //textbox đấu giá
+        $(".datgia").TouchSpin({
+            min: 0,
+            max: 999999999,
+            postfix: 'VND'
+        });
+    </script>
+
+    <!--<script>
+        // Can also be used with $(document).ready()
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('.starbox').each(function () {
+                var starbox = jQuery(this);
+                starbox.starbox({
+                    average: starbox.attr('data-start-value'),
+                    changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+                    ghosting: starbox.hasClass('ghosting'),
+                    autoUpdateAverage: starbox.hasClass('autoupdate'),
+                    buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+                    stars: starbox.attr('data-star-count') || 5
+                }).bind('starbox-value-changed', function (event, value) {
+                    if (starbox.hasClass('random')) {
+                        var val = Math.random();
+                        starbox.next().text(' ' + val);
+                        return val;
+                    }
+                })
+            });
+        });
+    </script>
+
+    <!--<script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+                items: 1,
+                lazyLoad: true,
+                autoPlay: true,
+                navigation: false,
+                navigationText: false,
+                pagination: true,
+            });
+        });
+    </script>
+
+
+    <script>
+        $('.value-plus1').on('click', function () {
+            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) + 1;
+            divUpd.text(newVal);
+        });
+
+        $('.value-minus1').on('click', function () {
+            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) - 1;
+            if (newVal >= 1) divUpd.text(newVal);
+        });
+    </script>
+    <!--quantity-->
+
+
+}
+<!--content-->
+<div class="content">
+    <div class="products-agileinfo">
+        <h2 class="tittle">Quản lý tài khoản</h2>
+        <div class="container">
+            <div class="product-agileinfo-grids w3l">
+                <div class="col-md-12 single-grid">
+                    <div class="col-sm-12">
+                        <div class="tab-wl3">
+                            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs left-tab text-center" role="tablist">
+
+                                    <li role="presentation" class="active"><a href="#DanhMucLon" id="DanhMucLon-tab" role="tab" data-toggle="tab" aria-controls="DanhMucLon" aria-expanded="true">Danh mục lớn</a></li>
+                                    <li role="presentation"><a href="#DanhMucNho" role="tab" id="DanhMucNho-tab" data-toggle="tab" aria-controls="DanhMucNho">Danh mục nhỏ</a></li>
+
+
+
+                                    @*@if (Model.Vip == true)
+                                        {
+                                            <li role="presentation"><a href="#DangBan" role="tab" id="DangBan-tab" data-toggle="tab" aria-controls="DangBan">Đang bán</a></li>
+                                            <li role="presentation"><a href="#HetHan" role="tab" id="HetHan-tab" data-toggle="tab" aria-controls="HetHan">Hết hạn</a></li>
+                                        }*@
+                                    @*@if (CurrentContext.IsLogged())
+                                        {
+                                            <li role="presentation"><a href="#Histories" role="tab" id="Histories-tab" data-toggle="tab" aria-controls="Histories">Lịch sử đấu giá</a></li>
+                                        }*@
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+
+                                    <!--tab mô tả-->
+                                    <div role="tabpanel" class="tab-pane fade active in" id="DanhMucLon" aria-labelledby="DanhMucLon-tab">
+                                        @Html.Action("DanhMucNho", "QuanTri")
+                                    </div>
+
+                                    <!--tab yêu thích-->
+
+                                    <div role="tabpanel" class="tab-pane fade" id="DanhMucNho" aria-labelledby="DanhMucNho-tab">
+                                        @Html.Action("XuatDanhMucNho", "QuanTri")
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="custom" aria-labelledby="custom-tab">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--mô tả sản phẩm-->
+    </div>
+</div>
+<!--content-->

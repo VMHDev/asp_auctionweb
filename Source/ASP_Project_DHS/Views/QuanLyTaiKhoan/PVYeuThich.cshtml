@@ -1,0 +1,70 @@
+﻿@model List<ASP_Project_DHS.Models.DauGia>
+
+@if (Model.Count() == 0)
+{
+    <h3 class="text-center" style="margin-bottom: 20px">Không có sản phẩm yêu thích</h3>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Kết thúc</th>
+                <th>Giá hiện tại (VND)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+                <tr>
+                    <td style="height: 113px">
+                        <div class="hinhtable">
+                            <div class="align_vertical hinh">
+                                <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">
+                                    <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <a style="margin-left:95px" href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">@item.Ten</a>
+                    </td>
+                    <td>@item.NgayKetThuc.Value.ToString(string.Format("HH:mm:ss, dd/MM/yyyy"))</td>
+                    @if (item.GiaCaoNhatHienTai == null)
+                    {
+                        <td style="text-align: right">
+                            @String.Format("{0:N0}", item.GiaKhoiDiem)
+
+                            @if (item.NgayKetThuc < DateTime.Now)
+                            {
+                                <i class="fa fa-share" style="color: red" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-clock-o" style="color: green" aria-hidden="true"></i>
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="text-align: right">
+                            @String.Format("{0:N0}", item.GiaCaoNhatHienTai)
+
+                            @if (item.NgayKetThuc < DateTime.Now)
+                            {
+                                <i class="fa fa-share" style="color: red" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-clock-o" style="color: green" aria-hidden="true"></i>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

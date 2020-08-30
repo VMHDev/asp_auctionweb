@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "ChiTiet";
+}
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action(" Index","Home")">Trang chủ</a></li>
+            <li class="active">Tìm kiếm</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+@section js{
+    <script src="~/assets/jquery-3.1.1.min.js"></script>
+    <script src="~/assets/BoostrapSelect/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript">
+        //boostrap-select
+        $('.selectpicker').selectpicker({
+            style: 'btn-info',
+            size: 10
+    });
+    </script>
+}
+<div class="container">
+    <h2 class="tittle">TÌM KIẾM</h2>
+    <form action="@Url.Action("Index", "TimKiem")" id="frmTimKiem">
+        <div class="col-sm-10" style="margin-top:5px;">
+            <div class="input-group">
+                <input type="hidden" id="TG_Tang" name="TG_Tang" />
+                <input type="hidden" id="Gia_Tang" name="Gia_Tang" value="true" />
+                <input type="text" class="form-control" id="ten_SP" name="ten_SP" placeholder="Search">
+                <!-- insert this line -->
+
+
+                <select class="selectpicker text-center" style="margin:0px;padding:0px;" id="id_DM" name="id_DM">
+                    @Html.Action("DanhMucLon", "TimKiem")
+                </select>
+
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-lg" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+    @*<a class="dhssearch" href="@Url.Action("Login","Account")">Tìm kiếm nâng cao</a>*@
+
+</div>

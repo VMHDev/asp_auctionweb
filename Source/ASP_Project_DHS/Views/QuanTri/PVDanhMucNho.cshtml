@@ -1,0 +1,74 @@
+﻿@using ASP_Project_DHS.Models
+
+
+@model List<ASP_Project_DHS.Models.DanhMucLon>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-5">
+            <p style="font-size:35px;color:blue">Danh Mục</p>
+        </div>
+        <div class="col-md-12">
+            <h2>Các loại danh mục mà khách hàng có thể tham giá đấu giá</h2>
+            <hr />
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="danger">
+                <th style="font-weight:700;">ID</th>
+                <th style="font-weight:700;">Tên Danh Mục</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr class="success">
+                    <td>@c.ID</td>
+                    <td>@c.Ten</td>
+                    <td>
+                        <a href="@Url.Action("Delete","DanhMuc",new { id = c.ID})" class="btn btn-warning">Xóa Danh Mục</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit","DanhMuc",new { id = c.ID})" class="btn btn-danger">Chỉnh Sửa Danh Mục</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <div class="col-md-4 col-md-offset-5">
+        <a href="@Url.Action("Add","DanhMuc")" class="btn btn-success">Thêm Danh Mục</a>
+    </div>
+    <nav aria-label="Page navigation"  class="col-md-4 col-md-offset-8">
+        <ul class="pagination">
+            <li>
+                <a href="?page = @(ViewBag.CurPage-1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= ViewBag.Pages; i++)
+            {
+                if (ViewBag.CurPage == i)
+                {
+                    <li class="active">
+                        <a href="?page=@i">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="?page=@i">@i</a>
+                    </li>
+                }
+
+            }
+            <li>
+                <a href="?page = @(ViewBag.CurPage+1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>

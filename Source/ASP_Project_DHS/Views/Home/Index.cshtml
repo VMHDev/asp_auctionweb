@@ -1,0 +1,92 @@
+﻿
+@section css{
+    <link href="~/assets/css/coreSlider.css" rel="stylesheet" />
+    <style type="text/css">
+        /* start of modification for 5 columns */
+        .col-sm-15 {
+            width: 20%;
+        }
+
+        /* end of modification for 5 columns */
+        .latest-w3 {
+            background-color: white;
+        }
+    </style>
+}
+
+@section js{
+    <script src="~/assets/js/coreSlider.js"></script>
+    <script type="text/javascript">
+        $('#example1').coreSlider({
+            pauseOnHover: false,
+            interval: 3000,
+            controlNavEnabled: true
+        });
+    </script>
+}
+
+@section view_banner{
+    <div class="banner-w3">
+        <div class="demo-1">
+            <div id="example1" class="core-slider core-slider__carousel example_1">
+                <div class="core-slider_viewport">
+                    <div class="core-slider_list">
+                        <div class="core-slider_item">
+                            <img src="~/img/layout/banner01.jpg" class="img-responsive" alt="banner01.jpg" />
+                        </div>
+                        <div class="core-slider_item">
+                            <img src="~/img/layout/banner02.jpg" class="img-responsive" alt="banner02.jpg" />
+                        </div>
+                        <div class="core-slider_item">
+                            <img src="~/img/layout/banner03.jpg" class="img-responsive" alt="banner03.jpg" />
+                        </div>
+                        <div class="core-slider_item">
+                            <img src="~/img/layout/banner4.jpg" class="img-responsive" alt="banner04.jpg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="core-slider_nav">
+                    <div class="core-slider_arrow core-slider_arrow__right"></div>
+                    <div class="core-slider_arrow core-slider_arrow__left"></div>
+                </div>
+                <div class="core-slider_control-nav"></div>
+            </div>
+        </div>
+    </div>
+    <!--content-->
+    <div class="content">
+        <!--new-arrivals-->
+        <div class="new-arrivals-w3agile">
+            <div class="container">
+                <h2 class="tittle">TOP HOT</h2>
+                <div class="arrivals-grids">
+                    @Html.Action("TopHot", "Home")
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!--new-arrivals-->
+        <!--Products-->
+        <div class="latest-w3">
+            <div class="container">
+                <h3 class="tittle1">TOP GIÁ CAO</h3>
+                <div class="latest-grids">
+                    @Html.Action("TopGiaCao", "Home")
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="new-arrivals-w3agile">
+            <div class="container">
+                <h2 class="tittle">TOP THỜI GIAN</h2>
+                <div class="arrivals-grids">
+                    @Html.Action("TopThoiGian", "Home")
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!--new-arrivals-->
+    </div>
+    <!--content-->
+}
+

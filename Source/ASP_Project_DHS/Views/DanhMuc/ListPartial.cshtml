@@ -1,0 +1,17 @@
+﻿@using ASP_Project_DHS.Models
+@model List<DanhMucLon>
+@{
+    Layout = null;
+}
+
+
+<div class="list-group">
+    @foreach (var c in Model)
+    {
+
+        <a href="@Url.Action("ByCat","Product",new { id = @c.ID })" class="list-group-item">
+            @c.Ten
+        </a>
+    }
+
+</div>
