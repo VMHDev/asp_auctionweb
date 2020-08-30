@@ -1,0 +1,51 @@
+﻿@using ASP_Project_DHS.Helpers
+@model List<ASP_Project_DHS.Models.ChiTietDauGia>
+<style>
+    .lichsu {
+        margin: 10px;
+        border-bottom-style: solid;
+        border-bottom-width: thin;
+        border-bottom-color: gainsboro;
+    }
+</style>
+
+@{
+    int i = 0;
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Thời gian</th>
+                <th>Người đặt giá</th>
+                <th>Giá đặt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="lichsu-@item.ID_TaiKhoanThamGiaDauGia">
+                    <td>
+                        @item.NgayThamGiaDauGiaGanNhat.Value.ToString(string.Format("HH:mm:ss, dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ThongTin", "Account", new { id = item.ID_TaiKhoanThamGiaDauGia})"><i>@ViewBag.DSTK[i].Email</i></a>
+                    </td>
+                    
+                    <td style="text-align: right">
+                        <span class="text-danger" style="font-size:20px">VND @String.Format("{0:N0}", item.GiaHienTaiLucDat)</span>
+                        @if (CurrentContext.GetCurUser().ID == ViewBag.ID_NguoiDang)
+                        {
+                            
+                            <a title="Kích người này" class="kich_daugia" data-kich="@item.ID_TaiKhoanThamGiaDauGia" data-id="@item.ID_DauGia" href="javascript:;"><i class="fa fa-ban" style="color: red; margin-left:5px;" aria-hidden="true"></i></a>
+                        }
+                        else
+                        {
+
+                        }
+                    </td>
+
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}

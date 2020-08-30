@@ -1,0 +1,8 @@
+﻿@using ASP_Project_DHS.Models
+@model List<DanhMucNho>
+
+@foreach (var item in Model)
+{
+    <option value="@item.ID">@item.Ten</option>
+}
+

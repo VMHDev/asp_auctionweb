@@ -1,0 +1,165 @@
+﻿@model ASP_Project_DHS.Models.ResetPassVM
+﻿@using BotDetect.Web.Mvc;
+
+@section css{
+    <link href="~/assets/css/account.style.css" rel="stylesheet" />
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+}
+
+@section js{
+    <script src="~/assets/jquery-validation-1.16.0/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        jQuery.validator.setDefaults({
+            highlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+                } else {
+                    $(element).closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
+                    $(element).closest('.form-group').find('i.fa').remove();
+                    $(element).closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
+                }
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).removeClass(errorClass).addClass(validClass);
+                } else {
+                    $(element).closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                    $(element).closest('.form-group').find('i.fa').remove();
+                    $(element).closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
+                }
+            }
+        });
+
+        $("#frmResetPass").validate({
+            rules: {
+                UserName: {
+                    required: true,
+                },
+                Email: {
+                    required: true,
+                    email: true
+                },
+                CaptchaCode: {
+                    required: true,
+                },
+            },
+
+            messages: {
+                UserName: {
+                    required: 'Vui lòng nhập tên đăng nhập!'
+                },
+                Email: {
+                    required: 'Vui lòng nhập email!',
+                    email: 'Email không đúng định dạng. Vui lòng nhập lại!'
+                },
+                CaptchaCode: {
+                    required: 'Vui lòng nhập mã kiểm tra!',
+                },
+            },
+
+            //errorElement: 'span',
+            //errorClass: 'help-block',
+        });
+    </script>
+}
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li><a href="@Url.Action("Login","Account")">Đăng nhập</a></li>
+            <li class="active">Quên mật khẩu</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+
+<!-- Main Container Starts -->
+<div class="main-container container">
+    <!-- Main Heading Starts -->
+    <h2 class="main-heading text-center">
+        Xin cấp lại mật khẩu hoặc tạo tài khoản mới
+    </h2>
+    <!-- Main Heading Ends -->
+    <!-- ResetPass Form Section Starts -->
+    <section class="login-area">
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- ResetPass Panel Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Xin cấp lại mật khẩu</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- ResetPass Form Starts -->
+                        <form class="form-horizontal" role="form" method="post" action="" id="frmResetPass">
+                            <div class="form-group">
+                                <label for="txtUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="Tên đăng nhập" autofocus="autofocus" name="UserName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email">
+                                </div>
+                            </div>
+
+                            <!--Captcha-->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    @{
+                                        MvcCaptcha dhsCaptcha = new MvcCaptcha("DHSCaptcha");
+                                        dhsCaptcha.Reset();
+                                    }
+                                    @Html.Captcha(dhsCaptcha)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtCaptcha" class="col-sm-3 control-label">Mã xác nhận</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtCaptcha" placeholder="Mã xác nhận" name="CaptchaCode">
+                                </div>
+                            </div>
+                            <!--#####-->
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                        OK
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ResetPass Form Ends -->
+                    </div>
+                </div>
+                <!-- ResetPass Panel Ends -->
+            </div>
+            <div class="col-sm-6">
+                <!-- Account Panel Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Tạo tài khoản mới
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Đăng kí tài khoản ngay. Để thực hiện các giao dịch cũng như trải nghiệm website tốt hơn!!!
+                        </p>
+                        <a href="@Url.Action("Register","Account")" class="btn btn-main">
+                            Đăng kí
+                        </a>
+                    </div>
+                </div>
+                <!-- Account Panel Ends -->
+            </div>
+        </div>
+    </section>
+    <!-- ResetPass Form Section Ends -->
+</div>
+<!-- Main Container Ends -->

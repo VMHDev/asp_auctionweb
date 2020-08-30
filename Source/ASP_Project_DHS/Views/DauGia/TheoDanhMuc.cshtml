@@ -1,0 +1,252 @@
+﻿@using ASP_Project_DHS.Models
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<DauGia>
+
+@{
+    ViewBag.Title = "TheoDanhMuc";
+}
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Sản phẩm theo danh mục</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+
+@section css{
+    <link rel="stylesheet" href="~/assets/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="~/assets/css/.css" type="text/css" media="screen" />
+    <link href="~/assets/css/owl.carousel.css" rel="stylesheet">
+    <style>
+        .products-agileinfo {
+            background-color: white;
+            padding: 0px;
+        }
+    </style>
+}
+
+@section js{
+    <script defer src="~/assets/js/jquery..js"></script>
+    <script src="~/assets/js/jstarbox.js"></script>
+    <script src="~/assets/js/imagezoom.js"></script>
+    <script src="~/assets/js/owl.carousel.js"></script>
+    <!--
+      <script>
+          // Can also be used with $(document).ready()
+          $(window).load(function () {
+              $('.').({
+                  animation: "slide",
+                  controlNav: "thumbnails"
+              });
+          });
+      </script>
+    <script type="text/javascript">
+          jQuery(function () {
+              jQuery('.starbox').each(function () {
+                  var starbox = jQuery(this);
+                  starbox.starbox({
+                      average: starbox.attr('data-start-value'),
+                      changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+                      ghosting: starbox.hasClass('ghosting'),
+                      autoUpdateAverage: starbox.hasClass('autoupdate'),
+                      buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+                      stars: starbox.attr('data-star-count') || 5
+                  }).bind('starbox-value-changed', function (event, value) {
+                      if (starbox.hasClass('random')) {
+                          var val = Math.random();
+                          starbox.next().text(' ' + val);
+                          return val;
+                      }
+                  })
+              });
+          });
+      </script>
+
+
+      <script>
+          $(document).ready(function () {
+              $("#owl-demo").owlCarousel({
+                  items: 1,
+                  lazyLoad: true,
+                  autoPlay: true,
+                  navigation: false,
+                  navigationText: false,
+                  pagination: true,
+              });
+          });
+      </script>
+
+
+      --quantity
+      <script>
+          $('.value-plus1').on('click', function () {
+              var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) + 1;
+              divUpd.text(newVal);
+          });
+
+          $('.value-minus1').on('click', function () {
+              var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) - 1;
+              if (newVal >= 1) divUpd.text(newVal);
+          });
+      </script>
+      --quantity-->
+}
+
+<!--content-->
+<div class="content">
+    <div class="products-agileinfo">
+        <h2 class="tittle">@ViewBag.TenDanhMucNho</h2>
+        <div class="container">
+            <div class="product-agileinfo-grids w3l">
+                <!--partialview danhmuc-->
+                <div class="col-sm-3 product-agileinfo-grid">
+                    @Html.Action("DanhMucLon", "DauGia")
+                    <div class="top-rates" style="background-color:#eee">
+                        <h3>Top giá cao</h3>
+                        @Html.Action("TopGiaCao", "DauGia")
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--partialview danhmuc-->
+                <div class="col-md-9 product-agileinfon-grid1">
+                    <!--<div class="product-agileinfon-top">
+                        <div class="col-md-6 product-agileinfon-top-left">
+                            <img class="img-responsive " src="~/assets/images/DanhMuc/@ViewBag.IDDanhMucNho/1.jpg" alt="">
+                        </div>
+                        <div class="col-md-6 product-agileinfon-top-left">
+                            <img class="img-responsive " src="~/assets/images/DanhMuc/@ViewBag.IDDanhMucNho/2.jpg" alt="">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="mens-toolbar">
+                            <p>Showing 1–9 of 21 results</p>
+                            <p class="showing">
+                                Sorting By
+                                <select>
+                                    <option value=""> Name</option>
+                                    <option value="">  Rate</option>
+                                    <option value=""> Color </option>
+                                    <option value=""> Price </option>
+                                </select>
+                            </p>
+                            <p>
+                                Show
+                                <select>
+                                    <option value=""> 9</option>
+                                    <option value="">  10</option>
+                                    <option value=""> 11 </option>
+                                    <option value=""> 12 </option>
+                                </select>
+                            </p>
+                            <div class="clearfix"></div>
+                        </div-->
+                    @if (Model.Count == 0)
+                    {
+                        <div class="text-center">
+                            <p class="price item_price">Không có sản phẩm</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="bs-example bs-example-tabs" style="margin-top:35px" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav1 nav1-tabs left-tab" role="tablist">
+                                <ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><img src="~/img/layout/menu1.png"></a></li>
+                                    <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"><img src="~/img/layout/menu.png"></a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                        <div class="product-tab">
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="col-md-4 product-tab-grid simpleCart_shelfItem" style="margin-bottom:30px">
+                                                    <div class="grid-arr" style="white-space:nowrap; overflow:hidden">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <div class="align_vertical hinh" style="position:relative">
+                                                                    <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">
+                                                                        <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </figure>
+                                                        </div>
+                                                        @*<div class="block">
+                                                                <div class="starbox small ghosting"> </div>
+                                                            </div>*@
+                                                        <div class="women">
+                                                            <h6 title="@item.Ten"><a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">@item.Ten</a></h6>
+                                                            <span class="size" style="display: inline">@item.MoTa</span>
+                                                            @if (item.GiaCaoNhatHienTai == null)
+                                                            {
+                                                                <p class="item_price">VND @String.Format("{0:N0}", item.GiaKhoiDiem)</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p class="item_price">VND @String.Format("{0:N0}", item.GiaCaoNhatHienTai)</p>
+                                                            }
+                                                            <a href="javascript:;" class="my-cart-b item_add YeuThich" data-id_yeuthich="@item.ID"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                                        <div class="product-tab1">
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="col-sm-12" style="margin:1%; border-bottom: 1px solid #ccc;"> </div>
+                                                <div>
+
+                                                    <div class="col-md-4 product-tab1-grid">
+                                                        <div class="grid-arr">
+                                                            <div class="grid-arrival">
+                                                                <div class="align_vertical hinh">
+                                                                    <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">
+                                                                        <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 product-tab1-grid1 simpleCart_shelfItem">
+                                                        @*<div class="block">
+                                                                <div class="starbox small ghosting"> </div>
+                                                            </div>*@
+                                                        <div class="women">
+                                                            <h6><a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">@item.Ten</a></h6>
+                                                            <p>@item.MoTa</p>
+                                                            @if (item.GiaCaoNhatHienTai == null)
+                                                            {
+                                                                <p class="item_price">VND @String.Format("{0:N0}", item.GiaKhoiDiem)</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p class="item_price">VND @String.Format("{0:N0}", item.GiaCaoNhatHienTai)</p>
+                                                            }
+                                                            <a href="javascript:;" class="my-cart-b item_add YeuThich" data-id_yeuthich="@item.ID"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                        </div>
+                    }
+                </div>
+                <div class="text-center">@Html.PagedListPager(Model, page => Url.Action("TheoDanhMuc", "DauGia", new { page }))</div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content-->

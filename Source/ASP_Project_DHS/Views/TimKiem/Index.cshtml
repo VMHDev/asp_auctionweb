@@ -1,0 +1,187 @@
+﻿@using ASP_Project_DHS.Models
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<DauGia>
+
+@{
+    ViewBag.Title = "Tìm kiếm";
+}
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Tìm kiếm</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+
+@section css{
+    <link rel="stylesheet" href="~/assets/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="~/assets/css/.css" type="text/css" media="screen" />
+    <link href="~/assets/css/owl.carousel.css" rel="stylesheet">
+    <style>
+        .products-agileinfo {
+            background-color: white;
+            padding: 0px;
+        }
+    </style>
+}
+
+@section js{
+    <script src="~/assets/js/jquery.js"></script>
+    <script src="~/assets/js/jstarbox.js"></script>
+    <script src="~/assets/js/imagezoom.js"></script>
+    <script src="~/assets/js/owl.carousel.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#Gia_S").on('click', function () {
+                var gia = $(this).data('gia_s');
+                if (gia === 'True')
+                    gia = false;
+                else
+                    gia = true;
+                var tg = null;
+                var iddm = $('#txtTimKiem').data('iddm_s');
+                var tensp = $('#txtTimKiem').data('tensp');
+
+                $('#TG_Tang').val(tg);
+                $('#Gia_Tang').val(gia);
+                $('#ten_SP').val(tensp);
+                $('#id_DM').val(iddm);
+
+                $('#frmTimKiem').submit();
+            });
+
+            $("#TG_S").on('click', function () {
+                var gia = null;
+                var tg = $(this).data('tg_s');
+                if (tg === 'True')
+                    tg = false;
+                else
+                    tg = true;
+                var iddm = $('#txtTimKiem').data('iddm_s');
+                var tensp = $('#txtTimKiem').data('tensp');
+
+                $('#TG_Tang').val(tg);
+                $('#Gia_Tang').val(gia);
+                $('#ten_SP').val(tensp);
+                $('#id_DM').val(iddm);
+
+                $('#frmTimKiem').submit();
+
+            });
+        });
+    </script>
+}
+
+<!--content-->
+<form action="@Url.Action("Index", "TimKiem")" id="frmTimKiem">
+            <input type="hidden" id="TG_Tang" name="TG_Tang" />
+            <input type="hidden" id="Gia_Tang" name="Gia_Tang" value="true" />
+            <input type="hidden" class="form-control" id="ten_SP" name="ten_SP" placeholder="Search">
+            <!-- insert this line -->
+            <input type="hidden" id="id_DM" name="id_DM"/>
+       
+</form>
+<div class="content">
+    <div class="products-agileinfo">
+        <h2 class="tittle">KẾT QUẢ TÌM KIẾM</h2>
+        <div class="container">
+            <div class="product-agileinfo-grids w3l">
+                <!--partialview danhmuc-->
+                <div class="col-sm-3 product-agileinfo-grid">
+                    @Html.Action("DanhMucLon", "DauGia")
+                    <div class="top-rates" style="background-color:#eee">
+                        <h3>Top giá cao</h3>
+                        @Html.Action("TopGiaCao", "DauGia")
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--partialview danhmuc-->
+                <div class="col-md-9 product-agileinfon-grid1">
+
+                    @if (Model.Count == 0)
+                    {
+                        <div class="text-center">
+                            <p class="price item_price">Không có sản phẩm</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="text-align:left">
+                            <a href="javascript:;" id="Gia_S" data-gia_s="@ViewBag.Gia_Tang" title="Theo giá"><i class="fa fa-money fa-3x" aria-hidden="true" style="margin-right:20px"></i></a>
+                            <a href="javascript:;" id="TG_S" data-tg_s="@ViewBag.TG_Tang" title="Theo thời gian"><i class="fa fa-clock-o fa-3x" aria-hidden="true"></i></a>
+                        </div>
+
+                        <input id="txtTimKiem" type="hidden" data-iddm_s="@ViewBag.ID_DM" data-tensp="@ViewBag.Ten_SP" />
+                        <div class="bs-example bs-example-tabs" style="margin-top:35px" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav1 nav1-tabs left-tab" role="tablist">
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                        <div class="product-tab">
+                                            @foreach (var item in Model)
+                                            {
+                                                var ngay = item.NgayKetThuc.Value - DateTime.Now;
+                                                ViewBag.Gio = ngay.Hours + ngay.Days * 24;
+                                                ViewBag.Phut = ngay.Minutes;
+                                                ViewBag.Giay = ngay.Seconds;
+
+                                                <div class="col-sm-4 col-sm-15 col-xs-12 arrival-grid arrival-grid simpleCart_shelfItem" style="margin-bottom:20px">
+                                                    <div class="grid-arr" style="white-space:nowrap; overflow:hidden">
+                                                        <div class="grid-arrival">
+                                                            <figure>
+                                                                <div class="align_vertical hinh">
+                                                                    <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">
+                                                                        <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </figure>
+                                                        </div>
+                                                        @if (item.NgayBatDau.Value.AddMinutes(30) >= DateTime.Now)
+                                                        {
+                                                            <div class="ribben1">
+                                                                <p>NEW</p>
+                                                            </div>
+                                                        }
+                                                        @Html.Action("LuotDauGia", "TimKiem", new { id = item.ID })
+                                                        <div class="women">
+                                                            <h6><a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID })">@item.Ten</a></h6>
+                                                            <span class="size"><i class="text-danger" style="font-size:x-large">@ViewBag.Gio:@ViewBag.Phut:@(ViewBag.Giay)s</i></span>
+                                                            @if (item.GiaCaoNhatHienTai == null)
+                                                            {
+                                                                <p><em class="item_price">VND @String.Format("{0:N0}", item.GiaKhoiDiem)</em></p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p><em class="item_price">VND @String.Format("{0:N0}", item.GiaCaoNhatHienTai)</em></p>
+                                                            }
+
+                                                            @Html.Action("NguoiGiuGia", "TimKiem", new { id = item.ID})
+                                                            @if (item.GiaMuaNgay != null)
+                                                            {
+                                                                <a href="#0" class="my-cart-b item_add">VND @String.Format("{0:N0}", item.GiaMuaNgay)</a>
+                                                            }
+                                                            <a href="javascript:;" class="my-cart-b item_add YeuThich" data-id_yeuthich="@item.ID"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                        </div>
+                    }
+                </div>
+                <div class="text-center">@Html.PagedListPager(Model, page => Url.Action("Index", "TimKiem", new { TG_Tang = ViewBag.TG_Tang, Gia_Tang = ViewBag.Gia_Tang, ten_SP = ViewBag.Ten_SP, id_DM = ViewBag.ID_DM, page }))</div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content-->

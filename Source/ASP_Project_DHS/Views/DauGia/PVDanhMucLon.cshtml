@@ -1,0 +1,71 @@
+﻿@using ASP_Project_DHS.Models
+@model List<DanhMucLon>
+
+<style>
+    .border_lai {
+        border: solid;
+        border-width: thin;
+        border-color: #f19e1f;
+        border-bottom: none;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="categories border_lai">
+    <h3>Danh mục</h3>
+    <ul class="tree-list-pad">
+        @foreach (var item in Model)
+        {
+            <li>
+                <input type="checkbox" id="item-@item.ID" /><label for="item-@item.ID"><span></span>@item.Ten</label>
+                <ul>
+                    @Html.Action("DanhMucNho", "DauGia", new { id = item.ID })
+                </ul>
+            </li>
+        }
+    </ul>
+</div>
+<!--<div class="price boder_lai">
+    <h3>Price Range</h3>
+    <ul class="dropdown-menu6">
+        <li>
+            <div id="slider-range"></div>
+            <input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
+        </li>
+    </ul>
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 9000,
+                values: [1000, 7000],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+        });//]]>
+
+    </script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+</div>
+
+<div class="brand-w3l">
+    <h3>Brands Filter</h3>
+    <ul>
+        <li><a href="#">Ralph Lauren</a></li>
+        <li><a href="#">adidas</a></li>
+        <li><a href="#">Bottega Veneta</a></li>
+        <li><a href="#">Valentino</a></li>
+        <li><a href="#">Nike</a></li>
+        <li><a href="#">Burberry</a></li>
+        <li><a href="#">Michael Kors</a></li>
+        <li><a href="#">Louis Vuitton</a></li>
+        <li><a href="#">Jimmy Choo</a></li>
+    </ul>
+</div>
+<div class="cat-img">
+    <img class="img-responsive " src="~/img/layout/45.jpg" alt="">
+</div>-->

@@ -1,0 +1,56 @@
+﻿
+@model List<ASP_Project_DHS.Models.DauGia>
+
+<a href="@Url.Action("Them", "DauGiaDB")" class="my-cart-b item_add">Đăng sản phẩm mới</a>
+@if (Model.Count() == 0)
+{
+    <h3  class="text-center" style="margin-bottom: 20px">Không có sản phẩm đang bán</h3>
+}
+else
+{
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Kết thúc</th>
+                <th>Giá hiện tại (VND)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+                <tr>
+                    <td style="height: 113px">
+                        <div class="hinhtable">
+                            <div class="align_vertical hinh">
+                                <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">
+                                    <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <a style="margin-left:95px" href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">@item.Ten</a>
+                    </td>
+                    <td>@item.NgayKetThuc.Value.ToString(string.Format("HH:mm:ss, dd/MM/yyyy"))</td>
+                    @if (item.GiaCaoNhatHienTai == null || item.GiaCaoNhatHienTai == 0)
+                    {
+                        <td style="text-align: right; color: green; font-size:18px">
+                            @String.Format("{0:N0}", item.GiaKhoiDiem)
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="text-align: right; color: green; font-size:18px">
+                            @String.Format("{0:N0}", item.GiaCaoNhatHienTai)
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

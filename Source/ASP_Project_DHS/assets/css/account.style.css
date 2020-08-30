@@ -1,0 +1,121 @@
+﻿
+/*Account Style*/
+.main-heading {
+    font-size: 42px;
+}
+
+    .main-heading span {
+        font-size: 18px;
+        color: #e8091b;
+    }
+
+.alert-dhs {
+    font-size: 18px;
+}
+
+/* Form & Buttons Styles Starts */
+.btn-main {
+    background-color: #5cb85c;
+}
+
+    .btn-main:hover,
+    .btn-main:focus,
+    .btn-main:active,
+    .btn-main.active {
+        background-color: #ed5258;
+    }
+
+    .btn-main,
+    .btn-main:hover,
+    .btn-main:focus,
+    .btn-main:active,
+    .btn-main.active {
+        color: #fff;
+    }
+/*#####*/
+
+/* Main Container Styles Starts */
+.main-container {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+/*#####*/
+
+/* Breadcrumb Styles Starts */
+.breadcrumb {
+    text-transform: uppercase;
+    padding: 5px 0 15px;
+    margin-bottom: 30px;
+    border: solid #1c1c1c;
+    border-width: 0 0 1px 0;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+    .breadcrumb li {
+        padding-right: 5px;
+        font-size: 15px;
+        color: #1c1c1c;
+    }
+
+    .breadcrumb > li + li:before {
+        padding-right: 10px;
+        content: "\00BB";
+        color: #1c1c1c;
+    }
+
+    .breadcrumb li a {
+        color: #1c1c1c;
+    }
+
+    .breadcrumb li.active {
+        color: #e8091b;
+    }
+/*#####*/
+
+/* Login & Registration Section Styles Starts */
+.login-area {
+    padding-top: 30px;
+}
+
+.registration-area {
+    padding-top: 20px;
+}
+
+.panel-smart {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+    .panel-smart .panel-heading {
+        padding: 5px 0 15px 0;
+        color: #252a2f;
+        border-bottom: 1px solid #929497;
+    }
+
+    .panel-smart .panel-body {
+        padding: 20px 0 0;
+    }
+
+.registration-area .inner {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.registration-area .control-label {
+    color: #8b8b8b;
+    font-weight: 600;
+}
+
+.registration-area .form-control, .registration-area .btn {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+/*#####*/

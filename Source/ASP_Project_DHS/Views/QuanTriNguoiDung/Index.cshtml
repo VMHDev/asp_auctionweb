@@ -1,0 +1,211 @@
+﻿@using ASP_Project_DHS.Models
+@model List<TaiKhoan>
+
+@section view_banner{
+    <!--banner-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li><a href="@Url.Action("Index","Admin")">Quản trị</a></li>
+            <li class="active">Người dùng</li>
+        </ol>
+    </div>
+    <!--banner-->
+}
+
+@section css{
+    <link href="~/assets/css/account.style.css" rel="stylesheet" />
+    <style type="text/css">
+        .panel-table{
+            margin:10px;
+        }
+        .panel-table .panel-body {
+            padding: 0;
+        }
+
+            .panel-table .panel-body .table-bordered {
+                border-style: none;
+                margin: 0;
+            }
+
+                .panel-table .panel-body .table-bordered > thead > tr > th:first-of-type {
+                    text-align: center;
+                    width: 100px;
+                }
+
+                .panel-table .panel-body .table-bordered > thead > tr > th:last-of-type,
+                .panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {
+                    border-right: 0px;
+                }
+
+                .panel-table .panel-body .table-bordered > thead > tr > th:first-of-type,
+                .panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {
+                    border-left: 0px;
+                }
+
+                .panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td {
+                    border-bottom: 0px;
+                }
+
+                .panel-table .panel-body .table-bordered > thead > tr:first-of-type > th {
+                    border-top: 0px;
+                }
+
+        .panel-table .panel-footer .pagination {
+            margin: 0;
+        }
+
+        /*
+        used to vertically center elements, may need modification if you're not using default sizes.
+        */
+        .panel-table .panel-footer .col {
+            line-height: 34px;
+            height: 34px;
+        }
+
+        .panel-table .panel-heading .col h3 {
+            line-height: 30px;
+            height: 30px;
+        }
+
+        .panel-table .panel-body .table-bordered > tbody > tr > td {
+            line-height: 34px;
+        }
+    </style>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="main-container container">      
+        <h2 class="main-heading text-center">
+            Không có tìm thấy tài khoản!
+        </h2>
+    </div>
+}
+else
+{
+        <!-- Main Container Starts -->
+    <div class="main-container container">
+        <!-- Main Heading Starts -->
+        <h2 class="main-heading text-center">
+            Quản trị người dùng
+        </h2>
+        <!-- Main Heading Ends -->
+
+        <div class="container">
+            <div class="row">
+                <!-- DeleteUser Starts-->
+                <div class="col-md-12">
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-6">
+                                    <h3 class="panel-title">Danh sách người dùng</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-list">
+                                <thead>
+                                    <tr>
+                                        <th><em class="fa fa-cog"></em></th>
+                                        <th>Mã</th>
+                                        <th>Tên đăng nhập</th>
+                                        <th>Họ tên</th>
+                                        <th>Email</th>
+                                        <th>Điểm</th>
+                                        <th>Đánh giá tốt</th>
+                                        <th>Đánh giá xấu</th>
+                                        <th>Vip</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var u in Model)
+                                    {
+                                        <tr>
+                                            <td align="center" width="150px">
+                                                <a class="btn btn-default" title="Xóa người dùng" href="@Url.Action("DeleteUser","QuanTriNguoiDung", new { idToDelete = u.ID })"><em class="fa fa-trash-o"></em></a>
+                                                <a class="btn btn-default" title="Reset mật khẩu" href="@Url.Action("ResetPass","QuanTriNguoiDung")"><em class="fa fa-repeat"></em></a>
+                                            </td>
+                                            <td>@u.ID</td>
+                                            <td>@u.TenDangNhap</td>
+                                            <td>@u.HoTen</td>
+                                            <td>@u.Email</td>
+                                            <td>@u.Diem</td>
+                                            <td>@u.DanhGiaTot</td>
+                                            <td>@u.DanhGiaXau</td>
+                                            <td>@u.Vip</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col col-xs-4">
+                                    @ViewBag.CurPage / @ViewBag.Pages
+                                </div>
+                                <div class="col col-xs-8">
+                                    <ul class="pagination hidden-xs pull-right">
+                                        @if (ViewBag.CurPage == 1)
+                                        {
+                                            <li class="disabled">
+                                                <span>
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="?page=@(ViewBag.CurPage-1)" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        @for (int i = 1; i <= ViewBag.Pages; i++)
+                                        {
+                                            if (ViewBag.CurPage == i)
+                                            {
+                                                <li class="active">
+                                                    <span>
+                                                        @i<span class="sr-only">(current)</span>
+                                                    </span>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="?page=@i">@i</a></li>
+                                            }
+                                        }
+
+                                        @if (ViewBag.CurPage == ViewBag.Pages)
+                                        {
+                                            <li class="disabled">
+                                                <span>
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="?page=@(ViewBag.CurPage+1)" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DeleteUser Ends -->
+            </div>
+        </div>
+        <!-- Main Container Ends -->
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@model List<ASP_Project_DHS.Models.DanhMucNho>
+    <style>
+        .theli:hover{
+            background-color:gainsboro;
+        }
+    </style>
+@foreach (var item in Model)
+{
+    <li class="text-left theli" style="padding-left:10px; margin-left:10px;border-left-style:solid;border-left-width:thin"><a href="@Url.Action("TheoDanhMuc", "DauGia", new { id = item.ID})">@item.Ten</a></li>
+}

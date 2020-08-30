@@ -1,0 +1,157 @@
+﻿@model ASP_Project_DHS.Models.TaiKhoan
+
+@section view_banner{
+    <!--banner-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li><a href="@Url.Action("Index","Admin")">Quản trị</a></li>
+            <li><a href="@Url.Action("Index","QuanTriNguoiDung")">Người dùng</a></li>
+            <li class="active">Xóa người dùng</li>
+        </ol>
+    </div>
+    <!--banner-->
+}
+
+@section css{
+    <link href="~/assets/css/account.style.css" rel="stylesheet" />
+}
+
+@section js{
+    <script type="text/javascript">
+
+    </script>
+}
+
+<!-- Main Container Starts -->
+<div class="main-container container">
+    <!-- Main Heading Starts -->
+    <h2 class="main-heading text-center">
+        Xóa người dùng <br />
+        <span>Bạn có chắc chắn muốn xóa người dùng này không?</span>
+    </h2>
+    <!-- Main Heading Ends -->
+    <!-- Registration Section Starts -->
+    <section class="registration-area">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <!--Alert (Thông báo) Starts-->
+                @if (ViewBag.Mess == true)
+                {
+                    <div class="alert alert-success alert-dismissible alert-dhs" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Thông báo!</strong> Bạn đã xóa người dùng thành công!!!
+                    </div>
+                }
+                @if (ViewBag.Mess == false)
+                {
+                    <div class="alert alert-warning alert-dismissible alert-dhs" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Thông báo!</strong> Bạn xóa người dùng không thành công! Vui lòng thử lại!
+                    </div>
+                }
+                <!--Alert (Thông báo) Ends-->
+                <!-- Registration Block Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Thông tin tài khoản
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Registration Form Starts -->
+                        <form class="form-horizontal" role="form" method="post" action="">
+                            <!-- Personal Information Starts -->
+                            <input type="hidden" class="form-control" id="txtID" name="ID" value="@Model.ID">
+                            <div class="form-group">
+                                <label for="txtUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+                                <div class="col-sm-9">                                    
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="Tên đăng nhập" name="TenDangNhap" value="@Model.TenDangNhap" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName" class="col-sm-3 control-label">Họ tên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtName" placeholder="Họ tên" name="HoTen" value="@Model.HoTen" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtNumPhone" class="col-sm-3 control-label">Số điện thoại</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtNumPhone" placeholder="0123456789" name="SoDienThoai" value="@Model.SoDienThoai" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email" value="@Model.Email" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDOB" class="col-sm-3 control-label">Ngày sinh</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control datepicker" id="txtDOB" placeholder="dd/mm/yyyy" name="NgaySinh" value="@Html.ValueFor(m => Model.NgaySinh, "{0:dd/MM/yyyy}")" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName" class="col-sm-3 control-label">Địa chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtAddress" placeholder="Địa chỉ" name="DiaChi" value="@Model.DiaChi" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtScores" class="col-sm-3 control-label">Điểm</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtScores" placeholder="Địa chỉ" name="Diem" readonly value="@Model.Diem">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtLike" class="col-sm-3 control-label">Đánh giá tốt</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtLike" placeholder="Số lần được đánh giá tốt" name="DanhGiaTot" readonly value="@Model.DanhGiaTot">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDislike" class="col-sm-3 control-label">Đánh giá xấu</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtDislike" placeholder="Số lần được đánh giá xấu" name="DanhGiaXau" readonly value="@Model.DanhGiaXau">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDislike" class="col-sm-3 control-label">Vip</label>
+                                <div class="col-sm-9">
+                                    @if (Model.Vip == true)
+                                    {
+                                        <input type="text" class="form-control" id="txtVip" placeholder="Vip" readonly value="Có">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" id="txtVip" placeholder="Vip" readonly value="Không">
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-success" autofocus>
+                                        Xóa
+                                    </button>
+                                    <a href="@Url.Action("Index","QuanTriNguoiDung")" class="btn btn-main">
+                                        Quay lại
+                                    </a>
+                                </div>
+                            </div>
+                  
+                        </form>
+                        <!-- Registration Form Starts -->
+                    </div>
+                </div>
+                <!-- Registration Block Ends -->
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </section>
+    <!-- Registration Section Ends -->
+</div>
+<!-- Main Container Ends -->

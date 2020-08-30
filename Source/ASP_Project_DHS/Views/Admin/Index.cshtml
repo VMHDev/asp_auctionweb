@@ -1,0 +1,141 @@
+﻿
+@section view_banner{
+    <!--banner-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Quản trị</li>
+        </ol>
+    </div>
+    <!--banner-->
+}
+
+@section css{
+    <link href="~/assets/css/account.style.css" rel="stylesheet" />
+    <style type="text/css">
+        .product-col .image {
+            margin-top: 10px;
+            position: relative;
+            padding: 5px;
+            border: 1px solid #d8d8d8;
+        }
+
+            .product-col .image > .label-new {
+                left: 10px;
+                background-color: #2e2e2e;
+            }
+
+            .product-col .image > .label-sale {
+                right: 10px;
+                background-color: #fa505d;
+            }
+
+            .product-col .image > .label-new,
+            .product-col .image > .label-sale {
+                padding: 4px 12px;
+                position: absolute;
+                top: 10px;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+        .product-col .caption {
+            padding: 10px 0;
+        }
+
+        .product-col.list .caption {
+            padding: 0;
+        }
+
+        .product-col h4 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .product-col.list h4 {
+            margin-top: 5px;
+        }
+
+        .product-col h4,
+        .product-col h4 a {
+            color: #2d2d2d;
+        }
+
+            .product-col h4 a:hover,
+            .product-col h4 a:focus {
+                color: #ed5258;
+            }
+
+        .product-col .description {
+            font-size: 20px;
+            padding: 5px 0;
+            color: #8b8b8b;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        .product-col.list .description {
+            padding-right: 20px;
+        }
+    </style>
+}
+
+<!-- Main Container Starts -->
+<div class="main-container container">
+    <!-- Main Heading Starts -->
+    <h2 class="main-heading text-center">
+        Quản trị
+    </h2>
+    <!-- Main Heading Ends -->
+    <div class="col-md-2"></div>
+    <!-- Administrator Starts-->
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="product-col no-box-shadow side-product">
+                    <div class="image">
+                        <a href="@Url.Action("Index","QuanTriDauGia")"><img src="~/img/admin/auction.jpg" alt="Quản trị đấu giá" class="img-responsive img-center-sm" /></a>
+                    </div>
+                    <div class="caption">
+                        <h4><a href="@Url.Action("Index","QuanTriDauGia")">Đấu giá</a></h4>
+                        <div class="description">
+                            Duyệt yêu cầu xin bán của người dùng
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="product-col no-box-shadow side-product">
+                    <div class="image">
+                        <a href="@Url.Action("Index","QuanTriNguoiDung")"><img src="~/img/admin/user.jpg" alt="Quản trị người dùng" class="img-responsive img-center-sm" /></a>
+                    </div>
+
+                    <div class="caption">
+                        <h4><a href="@Url.Action("Index","QuanTriNguoiDung")">Người dùng</a></h4>
+                        <div class="description">
+                            Quản trị người dùng
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="product-col no-box-shadow side-product">
+                    <div class="image">
+                        <a href="@Url.Action("Index","QuanTri")"><img src="~/img/admin/category.jpg" alt="Quản trị danh mục" class="img-responsive img-center-sm" /></a>
+                    </div>
+                    <div class="caption">
+                        <h4><a href="@Url.Action("Index","QuanTri")">Danh mục</a></h4>
+                        <div class="description">
+                            Quản trị danh mục
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Administrator Ends -->
+    <div class="col-md-2"></div>
+</div>
+<!-- Main Container Ends -->
