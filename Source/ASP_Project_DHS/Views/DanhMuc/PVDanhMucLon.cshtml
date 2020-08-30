@@ -1,0 +1,21 @@
+﻿@model List<ASP_Project_DHS.Models.DanhMucLon>
+@{
+    int i = 1;
+    foreach (var item in Model)
+    {
+        
+        <div class="col-sm-4" style="margin-bottom:20px; display:block">
+            <div class="col-sm-12 text-center">
+                <ul class="multi-column-dropdown">
+                    <h3 class="text-center" style="color: white; background-color: #f19e1f">@item.Ten</h3>
+                    @Html.Action("DanhMucNho", "DanhMuc", new { id = item.ID })
+                </ul>
+            </div>
+        </div>
+        if (i % 3 == 0)
+        {
+            <div class="col-sm-12"></div>
+        }
+        i++;
+    }
+}

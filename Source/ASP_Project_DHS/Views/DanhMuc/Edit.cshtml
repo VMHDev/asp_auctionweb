@@ -1,0 +1,45 @@
+﻿
+@using ASP_Project_DHS.Models
+@using PagedList.Mvc
+
+@model ASP_Project_DHS.Models.DanhMucLon
+
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Sản phẩm theo danh mục</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-smart">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h3>Cập Nhật Danh Mục</h3>
+                    </div>
+                </div>
+                <form method="post" action="@Url.Action("Update","DanhMuc")">
+                   <div class="form-group">
+                        <h5 style="color:red">ID:</h5>
+                        <input type="text" name="ID" readonly value="@Model.ID" />
+                    </div>
+                    <div class="form-group">
+                        <h5 style="color:red">Danh Mục:</h5>
+                        <input type="text" name="Ten" value="@Model.Ten" />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Đồng Ý</button>
+                    <a href="@Url.Action("XuatDanhMuc","DanhMuc")" class="btn btn-danger"> Quay Về </a>
+                </form>
+            </div>
+            
+        </div>   
+    </div> 
+</div>

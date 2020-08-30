@@ -1,0 +1,25 @@
+﻿@using ASP_Project_DHS.Models
+@model List<DauGia>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-sm-12">
+        <div class="col-sm-12" style="margin:2% 2%; border-bottom: 1px solid #ccc;"></div>
+    </div>
+    <div class="col-sm-4">
+        <div class="align_vertical hinh" style="position:relative">
+            <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">
+                <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <h6 class="best2" title="@item.Ten" style="white-space:nowrap; overflow:hidden"><a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">@item.Ten</a></h6>
+        @*<div class="block">
+                <div class="starbox small ghosting"> </div>
+            </div>*@
+        <span class=" price-in1">VND @String.Format("{0:N0}", item.GiaKhoiDiem)</span>
+    </div>
+    <div class="clearfix"></div>
+}

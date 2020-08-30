@@ -1,0 +1,59 @@
+﻿@model List<ASP_Project_DHS.Models.DauGia>
+<style>
+    .latest-text{
+        padding: 0px;
+        bottom: -80%;
+        height: 90%;
+        background-color:gainsboro;
+    }
+    .latest-grid{
+        margin-bottom: 20px;
+    }
+    .latest-text2{
+        top:5%;
+        left:5%;
+        width:100px;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+    a:visited {
+        text-decoration: none;
+    }
+</style>
+@foreach (var item in Model)
+{
+    var ngay = item.NgayKetThuc.Value - DateTime.Now;
+    ViewBag.Gio = ngay.Hours + ngay.Days * 24;
+    ViewBag.Phut = ngay.Minutes;
+    ViewBag.Giay = ngay.Seconds;
+
+    <div class="col-md-4 col-sm-6 latest-grid">
+        <div class="latest-top" style="white-space:nowrap; overflow:hidden">
+                <div class="align_vertical hinh" style="position:relative">
+                    <a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">
+                        <img class="img-responsive" src="~/assets/images/DauGia/@item.ID/daidien.jpg" alt="">
+                    </a>
+                </div>
+            <div class="latest-text">
+                <h4 title="@item.Ten"><a href="@Url.Action("ChiTiet", "DauGia", new { id = item.ID})">@item.Ten</a></h4>
+                <span class="size"><i class="text-danger" style="font-size:x-large">@ViewBag.Gio:@ViewBag.Phut:@(ViewBag.Giay)s</i></span>
+                <br />
+                @*<a href="#" data-text="Đấu giá" class="my-cart-b item_add">Đấu giá</a>*@
+                <a href="javascript:;" class="my-cart-b item_add YeuThich" data-id_yeuthich="@item.ID"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+            </div>
+            <div class="latest-text2 hvr-sweep-to-top">
+                @if (item.GiaCaoNhatHienTai == null)
+                {
+                    <h4>VND<br />@String.Format("{0:N0}", item.GiaKhoiDiem)</h4>
+                }
+                else
+                {
+                    <h4>VND<br />@String.Format("{0:N0}", item.GiaCaoNhatHienTai)</h4>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+

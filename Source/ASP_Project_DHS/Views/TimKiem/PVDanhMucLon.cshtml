@@ -1,0 +1,16 @@
+﻿@using ASP_Project_DHS.Models
+@model List<DanhMucLon>
+
+<style>
+</style>
+
+<optgroup label="Tất cả">
+    <option value="0">Tất cả</option>
+</optgroup>
+
+@foreach (var item in Model)
+{
+    <optgroup label="@item.Ten">
+        @Html.Action("DanhMucNho", "TimKiem", new { id = item.ID})
+    </optgroup>
+}

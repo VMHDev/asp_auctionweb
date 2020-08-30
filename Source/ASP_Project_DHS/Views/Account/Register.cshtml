@@ -1,0 +1,280 @@
+﻿﻿@using BotDetect.Web.Mvc;
+
+@section view_banner{
+    <!--banner-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Đăng kí</li>
+        </ol>
+    </div>
+    <!--banner-->
+}
+
+@section css{
+    <link href="~/assets/css/account.style.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap-datepicker-master/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+}
+
+@section js{
+    <script src="~/assets/jquery-validation-1.16.0/jquery.validate.min.js"></script>
+    <script src="~/assets/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/bootstrap-datepicker-master/locales/bootstrap-datepicker.vi.min.js"></script>
+    <script type="text/javascript">
+        //JS TextBox nhập ngày tháng
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'vi',
+        });
+
+        jQuery.validator.setDefaults({
+            highlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+                } else {
+                    $(element).closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
+                    $(element).closest('.form-group').find('i.fa').remove();
+                    $(element).closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
+                }
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).removeClass(errorClass).addClass(validClass);
+                } else {
+                    $(element).closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                    $(element).closest('.form-group').find('i.fa').remove();
+                    $(element).closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
+                }
+            }
+        });
+
+        $("#frmRegister").validate({
+            rules: {
+                UserName: {
+                    required: true,
+                },
+                Name: {
+                    required: true,
+                },
+                NumPhone: {
+                    required: true,
+                    number: true
+                },
+                Email: {
+                    required: true,
+                    email: true
+                },
+                DOB: {
+                    required: true,
+                },
+                DiaChi: {
+                    required: true,
+                },
+                RawPWD: {
+                    required: true,
+                    minlength: 6
+                },
+                CPWD: {
+                    required: true,
+                    equalTo: '#txtPWD'
+                },
+                CaptchaCode: {
+                    required: true,
+                },
+            },
+
+            messages: {
+                UserName: {
+                    required: 'Vui lòng nhập tên đăng nhập!'
+                },
+                Name: {
+                    required: 'Vui lòng nhập họ và tên!',
+                },
+                NumPhone: {
+                    required: 'Vui lòng nhập số điện thoại!',
+                    number: 'Vui lòng nhập đúng số điện thoại!'
+                },
+                Email: {
+                    required: 'Vui lòng nhập email!',
+                    email: 'Email không đúng định dạng. Vui lòng nhập lại!'
+                },
+                DOB: {
+                    required: 'Vui lòng nhập ngày sinh!',
+                },
+                DiaChi: {
+                    required: 'Vui lòng nhập địa chỉ!',
+                },
+                RawPWD: {
+                    required: 'Vui lòng nhập mật khẩu!',
+                    minlength: 'Mật khẩu phải tối thiểu 6 ký tự!'
+                },
+                CPWD: {
+                    required: 'Vui lòng nhập lại mật khẩu!',
+                    equalTo: 'Mật khẩu nhập lại không khớp!'
+                },
+                CaptchaCode: {
+                    required: 'Vui lòng nhập mã kiểm tra!',
+                },
+            },
+
+            errorElement: 'span',
+            errorClass: 'help-block',
+
+        //    highlight: function (element) {
+        //        $(element)
+        //        .closest('.form-group').addClass('has-error');
+        //    },
+
+        //    success: function (label) {
+        //        label.closest('.form-group').removeClass('has-error');
+        //    }
+        });
+
+    </script>
+}
+
+<!-- Main Container Starts -->
+<div class="main-container container">
+    <!-- Main Heading Starts -->
+    <h2 class="main-heading text-center">
+        Đăng kí <br />
+        <span>Tạo tài khoản mới</span>
+    </h2>
+    <!-- Main Heading Ends -->
+    <!-- Registration Section Starts -->
+    <section class="registration-area">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+
+                <!--Alert (Thông báo) Starts-->
+                @if (ViewBag.Mess == true)
+                {
+                    <div class="alert alert-success alert-dismissible alert-dhs" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Chúc mừng!</strong> Bạn đã đăng kí thành công!!!
+                    </div>
+                }
+                @if (ViewBag.Mess == false)
+                {
+                    <div class="alert alert-warning alert-dismissible alert-dhs" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Xin lỗi!</strong> Bạn đăng kí không thành công! Vui lòng thử lại!
+                    </div>
+                }
+                <!--Alert (Thông báo) Ends-->
+
+                <!-- Registration Block Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Thông tin tài khoản
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Registration Form Starts -->
+                        <form class="form-horizontal" role="form" method="post" action="" id="frmRegister">
+                            <!-- Personal Information Starts -->
+                            <div class="form-group">
+                                <label for="txtUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="Tên đăng nhập" autofocus="autofocus"  name="UserName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName" class="col-sm-3 control-label">Họ tên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtName" placeholder="Họ tên" name="Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtNumPhone" class="col-sm-3 control-label">Số điện thoại</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtNumPhone" placeholder="0123456789" name="NumPhone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDOB" class="col-sm-3 control-label">Ngày sinh</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control datepicker" id="txtDOB" placeholder="dd/mm/yyyy" name="DOB">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName" class="col-sm-3 control-label">Địa chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtAddress" placeholder="Địa chỉ" name="Address">
+                                </div>
+                            </div>
+                            <!-- Personal Information Ends -->
+
+                            <div class="panel-heading inner">
+                                <h3 class="panel-title">
+                                    Mật khẩu
+                                </h3>
+                            </div>
+
+                            @*<h3 class="panel-heading inner">
+                                    Mật khẩu
+                                </h3>*@
+                            <!-- Password Area Starts -->
+                            <div class="form-group">
+                                <label for="txtPWD" class="col-sm-3 control-label">Mật khẩu</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="txtPWD" placeholder="Password" name="RawPWD">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtCPWD" class="col-sm-3 control-label">Nhập lại mật khẩu</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="txtCPWD" placeholder="Password" name="CPWD">
+                                </div>
+                            </div>
+
+                            <!--Captcha-->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    @{
+                                        MvcCaptcha dhsCaptcha = new MvcCaptcha("DHSCaptcha");
+                                        dhsCaptcha.Reset();
+                                    }
+                                    @Html.Captcha(dhsCaptcha)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtCaptcha" class="col-sm-3 control-label">Mã xác nhận</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtCaptcha" placeholder="Mã xác nhận" name="CaptchaCode">
+                                </div>
+                            </div>                            
+                            <!--#####-->
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                        Đăng ký
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Password Area Ends -->
+                        </form>
+                        <!-- Registration Form Starts -->
+                    </div>
+                </div>
+                <!-- Registration Block Ends -->
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </section>
+    <!-- Registration Section Ends -->
+</div>
+<!-- Main Container Ends -->

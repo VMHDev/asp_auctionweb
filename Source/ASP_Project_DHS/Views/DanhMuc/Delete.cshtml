@@ -1,0 +1,43 @@
+﻿
+@using ASP_Project_DHS.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<DauGia>
+@{
+    ViewBag.Title = "Xóa Danh Mục";
+}
+@section view_banner{
+    <!--Banner Starts-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li class="active">Sản phẩm theo danh mục</li>
+        </ol>
+    </div>
+    <!--Banner Ends-->
+}
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-smart">
+            <div class="panel-heading">
+                <p style="font-size:35px;color:blue">Xóa Danh Mục</p>
+                <hr />
+            </div>
+            <p style="font-size:20px">Bạn muốn xóa danh mục mã: <b style="color:red;">@ViewBag.ID </b> ? </p>
+            <br />
+            <form method="post" action="">
+                <input type="hidden" value="@ViewBag.ID" name="idToDelete" />
+                <div class="col-md-7 col-md-offset-1">
+                    <button type="submit" class="btn btn-success">
+                        Đồng Ý
+                    </button>
+                    <a href="@Url.Action("XuatDanhMuc","DanhMuc")" class="btn btn-danger">
+                        Quay Về
+                    </a>
+                </div>
+                <br/>
+
+           
+            </form>
+        </div>
+    </div>
+</div>

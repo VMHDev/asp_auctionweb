@@ -1,0 +1,80 @@
+﻿@model ASP_Project_DHS.Models.TaiKhoan
+
+<form class="form-horizontal">
+    <!-- Personal Information Starts -->
+    <div class="form-group">
+        <label for="txtUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtUserName" placeholder="Tên đăng nhập" readonly value="@Model.TenDangNhap">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtName" class="col-sm-3 control-label">Họ tên</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtName" placeholder="Họ tên" readonly value="@Model.HoTen">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtNumPhone" class="col-sm-3 control-label">Số điện thoại</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtNumPhone" placeholder="0123456789" readonly value="@Model.SoDienThoai">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-9">
+            <input type="email" class="form-control" id="txtEmail" placeholder="Email" readonly value="@Model.Email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtAddress" class="col-sm-3 control-label">Địa chỉ</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtAddress" placeholder="Địa chỉ" readonly value="@Model.DiaChi">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDOB" class="col-sm-3 control-label">Ngày sinh</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control datepicker" id="txtDOB" placeholder="dd/mm/yyyy" readonly value="@Html.ValueFor(m => Model.NgaySinh, "{0:dd/MM/yyyy}")">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtScores" class="col-sm-3 control-label">Điểm</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtScores" placeholder="Địa chỉ" readonly value="@Model.Diem">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtLike" class="col-sm-3 control-label">Đánh giá tốt</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtLike" placeholder="Số lần được đánh giá tốt" readonly value="@Model.DanhGiaTot">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDislike" class="col-sm-3 control-label">Đánh giá xấu</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtDislike" placeholder="Số lần được đánh giá xấu" readonly value="@Model.DanhGiaXau">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDislike" class="col-sm-3 control-label">Vip</label>
+        <div class="col-sm-9">
+            @if (Model.Vip == true)
+            {
+                <input type="text" class="form-control" id="txtVip" placeholder="Vip" readonly value="Có">
+            }
+            else
+            {
+                <input type="text" class="form-control" id="txtVip" placeholder="Vip" readonly value="Không">
+            }
+        </div>
+    </div>
+    <div class="text-center" style="margin-bottom:10px;">
+        <a href="@Url.Action("EditThongTin","QuanLyTaiKhoan", new { idToEdit = Model.ID })" class="btn btn-success">
+            Chỉnh sửa
+        </a>
+    </div>
+    <!-- Personal Information Ends -->
+</form>
+
+

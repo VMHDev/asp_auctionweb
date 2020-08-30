@@ -1,0 +1,204 @@
+﻿@model ASP_Project_DHS.Models.TaiKhoan
+
+@section view_banner{
+    <!--banner-->
+    <div class="main-container container">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+            <li><a href="@Url.Action("Index","QuanLyTaiKhoan")">Quản lý tài khoản</a></li>
+            <li class="active">Chỉnh sửa thông tin</li>
+        </ol>
+    </div>
+    <!--banner-->
+}
+
+@section css{
+    <link href="~/assets/css/account.style.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap-datepicker-master/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+}
+
+@section js{
+    <script src="~/assets/jquery-validation-1.16.0/jquery.validate.min.js"></script>
+    <script src="~/assets/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/bootstrap-datepicker-master/locales/bootstrap-datepicker.vi.min.js"></script>
+    <script type="text/javascript">
+        //JS TextBox nhập ngày tháng
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'vi',
+        });
+
+        jQuery.validator.setDefaults({
+            highlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+                } else {
+                    $(element).closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
+                    $(element).closest('.form-group').find('i.fa').remove();
+                    $(element).closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
+                }
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).removeClass(errorClass).addClass(validClass);
+                } else {
+                    $(element).closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                    $(element).closest('.form-group').find('i.fa').remove();
+                    $(element).closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
+                }
+            }
+        });
+
+        $("#frmEditThongTin").validate({
+            rules: {
+                TenDangNhap: {
+                    required: true,
+                },
+                HoTen: {
+                    required: true,
+                },
+                SoDienThoai: {
+                    required: true,
+                    number: true
+                },
+                Email: {
+                    required: true,
+                    email: true
+                },
+                DOB: {
+                    required: true,
+                },
+                DiaChi: {
+                    required: true,
+                },
+            },
+
+            messages: {
+                TenDangNhap: {
+                    required: 'Vui lòng nhập tên đăng nhập!'
+                },
+                HoTen: {
+                    required: 'Vui lòng nhập họ và tên!',
+                },
+                SoDienThoai: {
+                    required: 'Vui lòng nhập số điện thoại!',
+                    number: 'Vui lòng nhập đúng số điện thoại!'
+                },
+                Email: {
+                    required: 'Vui lòng nhập email!',
+                    email: 'Email không đúng định dạng. Vui lòng nhập lại!'
+                },
+                NgaySinh: {
+                    required: 'Vui lòng nhập ngày sinh!',
+                },
+                DiaChi: {
+                    required: 'Vui lòng nhập địa chỉ!',
+                },
+            },
+
+            errorElement: 'span',
+            errorClass: 'help-block',
+        });
+    </script>
+}
+
+<!-- Main Container Starts -->
+<div class="main-container container">
+    <!-- Main Heading Starts -->
+    <h2 class="main-heading text-center">
+        Chỉnh sửa thông tin người dùng
+    </h2>
+    <!-- Main Heading Ends -->
+    <!-- Registration Section Starts -->
+    <section class="registration-area">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <!--Alert (Thông báo) Starts-->
+                @if (ViewBag.Mess == true)
+                {
+                    <div class="alert alert-success alert-dismissible alert-dhs" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Thông báo!</strong> Bạn đã xóa người dùng thành công!!!
+                    </div>
+                }
+                @if (ViewBag.Mess == false)
+                {
+                    <div class="alert alert-warning alert-dismissible alert-dhs" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Thông báo!</strong> Bạn xóa người dùng không thành công! Vui lòng thử lại!
+                    </div>
+                }
+                <!--Alert (Thông báo) Ends-->
+                <!-- Registration Block Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Thông tin tài khoản
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Registration Form Starts -->
+                        <form class="form-horizontal" role="form" method="post" action="" id="frmEditThongTin">
+                            <!-- Personal Information Starts -->
+                            <input type="hidden" class="form-control" id="txtID" name="ID" value="@Model.ID">
+                            <div class="form-group">
+                                <label for="txtUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="Tên đăng nhập" name="TenDangNhap" value="@Model.TenDangNhap" autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName" class="col-sm-3 control-label">Họ tên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtName" placeholder="Họ tên" name="HoTen" value="@Model.HoTen">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtNumPhone" class="col-sm-3 control-label">Số điện thoại</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtNumPhone" placeholder="0123456789" name="SoDienThoai" value="@Model.SoDienThoai">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email" value="@Model.Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDOB" class="col-sm-3 control-label">Ngày sinh</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control datepicker" id="txtDOB" placeholder="dd/mm/yyyy" name="NgaySinh" value="@Html.ValueFor(m => Model.NgaySinh, "{0:dd/MM/yyyy}")">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName" class="col-sm-3 control-label">Địa chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtAddress" placeholder="Địa chỉ" name="DiaChi" value="@Model.DiaChi">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-success">
+                                        OK
+                                    </button>
+                                    <a href="@Url.Action("Index","QuanLyTaiKhoan")" class="btn btn-main">
+                                        Quay lại
+                                    </a>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- Registration Form Starts -->
+                    </div>
+                </div>
+                <!-- Registration Block Ends -->
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </section>
+    <!-- Registration Section Ends -->
+</div>
+<!-- Main Container Ends -->
